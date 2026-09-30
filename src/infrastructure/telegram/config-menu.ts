@@ -344,8 +344,8 @@ export class ConfigMenu {
 
   /**
    * Step 1 of language-pack selection (see `translator.ts`'s `listBaseLocales`): pick the base
-   * language. Only `en`/`fr` are shipped today, but this reads the loaded locale set rather than
-   * a hardcoded list, so a future third base language needs no code change here.
+   * language. `en`/`fr`/`es` ship today, but this reads the loaded locale set rather than
+   * a hardcoded list, so a new base language needs no code change here.
    */
   private languageScreen(group: GroupWithConfig): MenuScreen {
     const lang = group.language;

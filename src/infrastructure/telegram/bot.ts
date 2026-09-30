@@ -5,6 +5,7 @@ import { GameManager } from '../../application/game-manager.js';
 import type { Env } from '../config/env.js';
 import type { Logger } from '../logging/logger.js';
 import type { Translator } from '../i18n/translator.js';
+import { baseLanguage, pickLang } from '../i18n/language.js';
 import type { GameMode } from '../../domain/game/game-mode.js';
 import { getRankForPoints } from '../../domain/scoring/rank.js';
 import { TITLE_CATALOG, getTitleById } from '../../domain/titles/title.js';
@@ -288,7 +289,7 @@ export function createBot(env: Env, logger: Logger, deps: BotDependencies): Bot 
   // Registered before the generic `callback_query:data` catch-all further down (which doesn't
   // call next()) so its own `stopwaiting:...` callback data actually gets a chance to match.
   registerWaitlistCommands(bot, deps);
-  registerModesGuideCommands(bot, lobby);
+  registerModesGuideCommands(bot, lobby, deps.groupRepository);
 
   // Mission mode's accept/decline buttons (see `GameLobbyManager.notifyMission()`, which sends
   // them alongside the role-reveal PM) - also registered ahead of the generic callback catch-all
@@ -349,24 +350,29 @@ export function createBot(env: Env, logger: Logger, deps: BotDependencies): Bot 
   bot.command(['mamission', 'mymission'], async (ctx) => {
     if (!ctx.from) return;
     const playerId = BigInt(ctx.from.id);
-    const isFr = ctx.from.language_code === 'fr';
     const game = deps.gameManager.findByPlayer(playerId);
     const player = game?.players.find((p) => p.id === playerId);
     const language = game
       ? (await deps.groupRepository.getOrCreate(game.chatId, null, null)).language
-      : ctx.from.language_code === 'en'
-        ? 'en'
-        : 'fr';
+      : (ctx.from.language_code ?? 'en');
 
     if (!player || !player.missionId) {
-      const msg = isFr
-        ? "🎯 Tu n'as aucune mission active pour le moment."
-        : "🎯 You don't have an active mission right now.";
+      const msg = pickLang(
+        ctx.from.language_code,
+        "🎯 Tu n'as aucune mission active pour le moment.",
+        "🎯 You don't have an active mission right now.",
+        '🎯 No tienes ninguna misión activa en este momento.',
+      );
       if (ctx.chat.type === 'private') {
         await ctx.reply(msg);
       } else {
         await ctx.reply(
-          isFr ? '📬 Réponse envoyée en message privé.' : '📬 Reply sent by private message.',
+          pickLang(
+            ctx.from.language_code,
+            '📬 Réponse envoyée en message privé.',
+            '📬 Reply sent by private message.',
+            '📬 Respuesta enviada por mensaje privado.',
+          ),
         );
         await ctx.api.sendMessage(ctx.from.id, msg).catch(() => null);
       }
@@ -394,7 +400,12 @@ export function createBot(env: Env, logger: Logger, deps: BotDependencies): Bot 
       await ctx.reply(reminder, { parse_mode: 'HTML' });
     } else {
       await ctx.reply(
-        isFr ? '📬 Réponse envoyée en message privé.' : '📬 Reply sent by private message.',
+        pickLang(
+          ctx.from.language_code,
+          '📬 Réponse envoyée en message privé.',
+          '📬 Reply sent by private message.',
+          '📬 Respuesta enviada por mensaje privado.',
+        ),
       );
       await ctx.api.sendMessage(ctx.from.id, reminder, { parse_mode: 'HTML' }).catch(() => null);
     }
@@ -498,11 +509,12 @@ export function createBot(env: Env, logger: Logger, deps: BotDependencies): Bot 
 
   bot.command('setlang', async (ctx) => {
     if (!ctx.from) return;
-    const keyboard = new InlineKeyboard()
-      .text('English', 'setlang:en')
-      .text('Français', 'setlang:fr');
     const player = await deps.playerRepository.findByTelegramId(BigInt(ctx.from.id));
     const language = player?.languageCode ?? 'en';
+    const keyboard = new InlineKeyboard();
+    for (const base of deps.translator.listBaseLocales()) {
+      keyboard.text(base.name, `setlang:${base.code}`).row();
+    }
     try {
       await ctx.api.sendMessage(ctx.from.id, deps.translator.translate(language, 'SetLangPrompt'), {
         reply_markup: keyboard,
@@ -515,7 +527,7 @@ export function createBot(env: Env, logger: Logger, deps: BotDependencies): Bot 
     }
   });
 
-  bot.callbackQuery(/^setlang:(en|fr)$/, async (ctx) => {
+  bot.callbackQuery(/^setlang:(.+)$/, async (ctx) => {
     if (!ctx.from) return;
     const language = ctx.match[1]!;
     await deps.playerRepository.setLanguage(BigInt(ctx.from.id), language);
@@ -628,17 +640,22 @@ export function createBot(env: Env, logger: Logger, deps: BotDependencies): Bot 
 
     if (total === 0) {
       await ctx.reply(
-        language === 'fr'
-          ? "Aucun joueur n'a encore terminé de partie dans ce groupe."
-          : 'No player has finished a game in this group yet.',
+        pickLang(
+          language,
+          "Aucun joueur n'a encore terminé de partie dans ce groupe.",
+          'No player has finished a game in this group yet.',
+          'Ningún jugador ha terminado todavía una partida en este grupo.',
+        ),
       );
       return;
     }
 
-    const title =
-      language === 'fr'
-        ? `🏆 <b>CLASSEMENT DU GROUPE${group.title ? ` : ${group.title}` : ''}</b>\n`
-        : `🏆 <b>GROUP LEADERBOARD${group.title ? `: ${group.title}` : ''}</b>\n`;
+    const title = pickLang(
+      language,
+      `🏆 <b>CLASSEMENT DU GROUPE${group.title ? ` : ${group.title}` : ''}</b>\n`,
+      `🏆 <b>GROUP LEADERBOARD${group.title ? `: ${group.title}` : ''}</b>\n`,
+      `🏆 <b>CLASIFICACIÓN DEL GRUPO${group.title ? `: ${group.title}` : ''}</b>\n`,
+    );
     const lines = [title, ...renderLeaderboardRows(players, page, deps.translator, language)];
 
     const hasNext = offset + players.length < total;
@@ -670,21 +687,36 @@ export function createBot(env: Env, logger: Logger, deps: BotDependencies): Bot 
     if (!ctx.from) return;
     const caller = await deps.playerRepository.findByTelegramId(BigInt(ctx.from.id));
     const language = caller?.languageCode ?? ctx.from.language_code ?? 'fr';
-    const isFr = language === 'fr';
 
     const rankings = await deps.groupRepository.getGroupRankings(15);
     if (rankings.length === 0) {
-      await ctx.reply(isFr ? 'Aucun groupe classé pour le moment.' : 'No ranked groups yet.');
+      await ctx.reply(
+        pickLang(
+          language,
+          'Aucun groupe classé pour le moment.',
+          'No ranked groups yet.',
+          'Aún no hay grupos clasificados.',
+        ),
+      );
       return;
     }
 
     const lines = [
-      isFr ? '🏆 <b>MEILLEURS GROUPES</b>\n' : '🏆 <b>TOP GROUPS</b>\n',
+      pickLang(
+        language,
+        '🏆 <b>MEILLEURS GROUPES</b>\n',
+        '🏆 <b>TOP GROUPS</b>\n',
+        '🏆 <b>MEJORES GRUPOS</b>\n',
+      ),
       ...rankings.map((r, idx) => {
-        const title = r.title ?? (isFr ? 'Groupe sans nom' : 'Untitled group');
-        return isFr
-          ? `${idx + 1}. <b>${title}</b> — ${r.gamesPlayed} partie(s), ${r.uniquePlayers} joueur(s), ${r.totalPoints} pts cumulés`
-          : `${idx + 1}. <b>${title}</b> — ${r.gamesPlayed} game(s), ${r.uniquePlayers} player(s), ${r.totalPoints} combined pts`;
+        const title =
+          r.title ?? pickLang(language, 'Groupe sans nom', 'Untitled group', 'Grupo sin nombre');
+        return pickLang(
+          language,
+          `${idx + 1}. <b>${title}</b> — ${r.gamesPlayed} partie(s), ${r.uniquePlayers} joueur(s), ${r.totalPoints} pts cumulés`,
+          `${idx + 1}. <b>${title}</b> — ${r.gamesPlayed} game(s), ${r.uniquePlayers} player(s), ${r.totalPoints} combined pts`,
+          `${idx + 1}. <b>${title}</b> — ${r.gamesPlayed} partida(s), ${r.uniquePlayers} jugador(es), ${r.totalPoints} pts acumulados`,
+        );
       }),
     ];
     await ctx.reply(lines.join('\n'), { parse_mode: 'HTML' });
@@ -695,7 +727,6 @@ export function createBot(env: Env, logger: Logger, deps: BotDependencies): Bot 
     const targetUserId = BigInt(ctx.from.id);
     const player = await deps.playerRepository.findByTelegramId(targetUserId);
     const language = player?.languageCode ?? 'fr';
-    const isFr = language === 'fr';
 
     const playerStats = await deps.gameRepository.getPlayerStats(targetUserId);
     const rank = getRankForPoints(player?.points ?? 0);
@@ -705,47 +736,64 @@ export function createBot(env: Env, logger: Logger, deps: BotDependencies): Bot 
     const equippedTitleObj = player?.equippedTitle ? getTitleById(player.equippedTitle) : null;
     const titleText = equippedTitleObj
       ? `${equippedTitleObj.emoji} ${equippedTitleObj.defaultTitle}`
-      : isFr
-        ? 'Aucun'
-        : 'None';
+      : pickLang(language, 'Aucun', 'None', 'Ninguno');
 
     const winrate =
       playerStats.played > 0 ? ((playerStats.won / playerStats.played) * 100).toFixed(1) : '0.0';
 
-    const cardLines = isFr
-      ? [
-          `👤 <b>CARTE DE PROFIL — ${ctx.from.first_name.toUpperCase()}</b>`,
-          `━━━━━━━━━━━━━━━━━━━━━━`,
-          `🏅 <b>Rang :</b> ${rank.emoji} ${displayRankTitle}`,
-          `👑 <b>Titre Équipé :</b> ${titleText}`,
-          `⭐ <b>Points de Classement :</b> ${player?.points ?? 0} pts`,
-          `🎮 <b>Parties Jouées :</b> ${playerStats.played}`,
-          `🏆 <b>Victoires :</b> ${playerStats.won} (${winrate}% de victoires)`,
-          `💎 <b>Palier Donateur :</b> ${donorBadge(player?.donationLevel ?? 0) || 'Membre'}`,
-          `━━━━━━━━━━━━━━━━━━━━━━`,
-          `💡 Utilise /titles pour changer ton titre équipé !`,
-        ]
-      : [
-          `👤 <b>PROFILE CARD — ${ctx.from.first_name.toUpperCase()}</b>`,
-          `━━━━━━━━━━━━━━━━━━━━━━`,
-          `🏅 <b>Rank:</b> ${rank.emoji} ${displayRankTitle}`,
-          `👑 <b>Equipped Title:</b> ${titleText}`,
-          `⭐ <b>Ranking Points:</b> ${player?.points ?? 0} pts`,
-          `🎮 <b>Games Played:</b> ${playerStats.played}`,
-          `🏆 <b>Wins:</b> ${playerStats.won} (${winrate}% winrate)`,
-          `💎 <b>Donor Tier:</b> ${donorBadge(player?.donationLevel ?? 0) || 'Member'}`,
-          `━━━━━━━━━━━━━━━━━━━━━━`,
-          `💡 Use /titles to change your equipped title!`,
-        ];
+    const cardLines = pickLang(
+      language,
+      [
+        `👤 <b>CARTE DE PROFIL — ${ctx.from.first_name.toUpperCase()}</b>`,
+        `━━━━━━━━━━━━━━━━━━━━━━`,
+        `🏅 <b>Rang :</b> ${rank.emoji} ${displayRankTitle}`,
+        `👑 <b>Titre Équipé :</b> ${titleText}`,
+        `⭐ <b>Points de Classement :</b> ${player?.points ?? 0} pts`,
+        `🎮 <b>Parties Jouées :</b> ${playerStats.played}`,
+        `🏆 <b>Victoires :</b> ${playerStats.won} (${winrate}% de victoires)`,
+        `💎 <b>Palier Donateur :</b> ${donorBadge(player?.donationLevel ?? 0) || 'Membre'}`,
+        `━━━━━━━━━━━━━━━━━━━━━━`,
+        `💡 Utilise /titles pour changer ton titre équipé !`,
+      ].join('\n'),
+      [
+        `👤 <b>PROFILE CARD — ${ctx.from.first_name.toUpperCase()}</b>`,
+        `━━━━━━━━━━━━━━━━━━━━━━`,
+        `🏅 <b>Rank:</b> ${rank.emoji} ${displayRankTitle}`,
+        `👑 <b>Equipped Title:</b> ${titleText}`,
+        `⭐ <b>Ranking Points:</b> ${player?.points ?? 0} pts`,
+        `🎮 <b>Games Played:</b> ${playerStats.played}`,
+        `🏆 <b>Wins:</b> ${playerStats.won} (${winrate}% winrate)`,
+        `💎 <b>Donor Tier:</b> ${donorBadge(player?.donationLevel ?? 0) || 'Member'}`,
+        `━━━━━━━━━━━━━━━━━━━━━━`,
+        `💡 Use /titles to change your equipped title!`,
+      ].join('\n'),
+      [
+        `👤 <b>TARJETA DE PERFIL — ${ctx.from.first_name.toUpperCase()}</b>`,
+        `━━━━━━━━━━━━━━━━━━━━━━`,
+        `🏅 <b>Rango:</b> ${rank.emoji} ${displayRankTitle}`,
+        `👑 <b>Título Equipado:</b> ${titleText}`,
+        `⭐ <b>Puntos de Clasificación:</b> ${player?.points ?? 0} pts`,
+        `🎮 <b>Partidas Jugadas:</b> ${playerStats.played}`,
+        `🏆 <b>Victorias:</b> ${playerStats.won} (${winrate}% de victorias)`,
+        `💎 <b>Nivel de Donante:</b> ${donorBadge(player?.donationLevel ?? 0) || 'Miembro'}`,
+        `━━━━━━━━━━━━━━━━━━━━━━`,
+        `💡 ¡Usa /titles para cambiar tu título equipado!`,
+      ].join('\n'),
+    );
 
-    await ctx.reply(cardLines.join('\n'), { parse_mode: 'HTML' });
+    await ctx.reply(cardLines, { parse_mode: 'HTML' });
   });
 
   bot.command('gazette', async (ctx) => {
     const gazette = ctx.chat ? gameLoop.getLastGazette(BigInt(ctx.chat.id)) : undefined;
     if (!gazette) {
       await ctx.reply(
-        '📜 <i>Aucune gazette récente pour ce groupe. Jouez une partie pour éditer la première gazette !</i>',
+        pickLang(
+          ctx.from?.language_code,
+          '📜 <i>Aucune gazette récente pour ce groupe. Jouez une partie pour éditer la première gazette !</i>',
+          '📜 <i>No recent gazette for this group. Play a game to publish the first gazette!</i>',
+          '📜 <i>No hay ninguna gaceta reciente para este grupo. ¡Jugad una partida para publicar la primera gaceta!</i>',
+        ),
         { parse_mode: 'HTML' },
       );
       return;
@@ -757,7 +805,6 @@ export function createBot(env: Env, logger: Logger, deps: BotDependencies): Bot 
     if (!ctx.from) return;
     const player = await deps.playerRepository.findByTelegramId(BigInt(ctx.from.id));
     const language = player?.languageCode ?? 'fr';
-    const isFr = language === 'fr';
 
     const keyboard = new InlineKeyboard();
     TITLE_CATALOG.forEach((t, i) => {
@@ -766,26 +813,40 @@ export function createBot(env: Env, logger: Logger, deps: BotDependencies): Bot 
       keyboard.text(btnText, `settitle:${t.id}`);
       if (i % 2 === 1) keyboard.row();
     });
-    keyboard.row().text(isFr ? '❌ Retirer mon titre' : '❌ Unequip Title', 'settitle:none');
+    keyboard
+      .row()
+      .text(
+        pickLang(language, '❌ Retirer mon titre', '❌ Unequip Title', '❌ Quitar mi título'),
+        'settitle:none',
+      );
 
-    const msg = isFr
-      ? `👑 <b>GESTION DES TITRES ÉPIQUES</b>\n\nChoisis le titre que tu souhaites afficher sur ta carte de profil et dans le classement :`
-      : `👑 <b>EQUIP YOUR TITLE</b>\n\nChoose the title you wish to display on your profile card and leaderboard:`;
+    const msg = pickLang(
+      language,
+      `👑 <b>GESTION DES TITRES ÉPIQUES</b>\n\nChoisis le titre que tu souhaites afficher sur ta carte de profil et dans le classement :`,
+      `👑 <b>EQUIP YOUR TITLE</b>\n\nChoose the title you wish to display on your profile card and leaderboard:`,
+      `👑 <b>GESTIÓN DE TÍTULOS ÉPICOS</b>\n\nElige el título que deseas mostrar en tu tarjeta de perfil y en la clasificación:`,
+    );
 
     try {
       await ctx.api.sendMessage(ctx.from.id, msg, { reply_markup: keyboard, parse_mode: 'HTML' });
       if (ctx.chat && ctx.chat.type !== 'private') {
         await ctx.reply(
-          isFr
-            ? 'Regarde tes messages privés pour gérer tes titres !'
-            : 'Check your private messages to manage your titles!',
+          pickLang(
+            language,
+            'Regarde tes messages privés pour gérer tes titres !',
+            'Check your private messages to manage your titles!',
+            '¡Revisa tus mensajes privados para gestionar tus títulos!',
+          ),
         );
       }
     } catch {
       await ctx.reply(
-        isFr
-          ? "Démarre d'abord une conversation avec moi en MP pour gérer tes titres !"
-          : 'Start a PM with me first to manage your titles!',
+        pickLang(
+          language,
+          "Démarre d'abord une conversation avec moi en MP pour gérer tes titres !",
+          'Start a PM with me first to manage your titles!',
+          '¡Inicia primero una conversación conmigo por privado para gestionar tus títulos!',
+        ),
       );
     }
   });
@@ -799,11 +860,21 @@ export function createBot(env: Env, logger: Logger, deps: BotDependencies): Bot 
 
     const titleObj = newTitle ? getTitleById(newTitle) : null;
     const text = titleObj
-      ? `Titre équipé : ${titleObj.emoji} ${titleObj.defaultTitle} !`
-      : 'Titre retiré.';
+      ? pickLang(
+          ctx.from.language_code,
+          `Titre équipé : ${titleObj.emoji} ${titleObj.defaultTitle} !`,
+          `Equipped title: ${titleObj.emoji} ${titleObj.defaultTitle}!`,
+          `Título equipado: ${titleObj.emoji} ${titleObj.defaultTitle}.`,
+        )
+      : pickLang(ctx.from.language_code, 'Titre retiré.', 'Title removed.', 'Título retirado.');
     await ctx.answerCallbackQuery({ text });
     await ctx.editMessageText(
-      `✅ <b>${text}</b>\n\nUtilise /profile pour admirer ta nouvelle carte de profil !`,
+      pickLang(
+        ctx.from.language_code,
+        `✅ <b>${text}</b>\n\nUtilise /profile pour admirer ta nouvelle carte de profil !`,
+        `✅ <b>${text}</b>\n\nUse /profile to admire your new profile card!`,
+        `✅ <b>${text}</b>\n\n¡Usa /profile para admirar tu nueva tarjeta de perfil!`,
+      ),
       { parse_mode: 'HTML' },
     );
   });
@@ -819,9 +890,12 @@ export function createBot(env: Env, logger: Logger, deps: BotDependencies): Bot 
       const isAdmin = member.status === 'administrator' || member.status === 'creator';
       if (!isAdmin) {
         await ctx.reply(
-          language === 'fr'
-            ? 'Seuls les administrateurs du groupe peuvent utiliser /tagall.'
-            : 'Only group administrators can use /tagall.',
+          pickLang(
+            language,
+            'Seuls les administrateurs du groupe peuvent utiliser /tagall.',
+            'Only group administrators can use /tagall.',
+            'Solo los administradores del grupo pueden usar /tagall.',
+          ),
         );
         return;
       }
@@ -836,41 +910,51 @@ export function createBot(env: Env, logger: Logger, deps: BotDependencies): Bot 
     const callerId = BigInt(ctx.from.id);
     const player = await deps.playerRepository.findByTelegramId(callerId);
     const language = player?.languageCode ?? ctx.from.language_code ?? 'fr';
-    const isFr = language === 'fr';
 
     const optedOut = await deps.playerRepository.toggleTagOptOut(callerId);
     await ctx.reply(
       optedOut
-        ? isFr
-          ? '🔕 Tu ne seras plus tagué(e) par /tagall dans aucun groupe. Retape /notag pour réactiver.'
-          : "🔕 You'll no longer be tagged by /tagall in any group. Run /notag again to opt back in."
-        : isFr
-          ? '🔔 Tu peux de nouveau être tagué(e) par /tagall.'
-          : '🔔 You can be tagged by /tagall again.',
+        ? pickLang(
+            language,
+            '🔕 Tu ne seras plus tagué(e) par /tagall dans aucun groupe. Retape /notag pour réactiver.',
+            "🔕 You'll no longer be tagged by /tagall in any group. Run /notag again to opt back in.",
+            '🔕 Ya no se te etiquetará con /tagall en ningún grupo. Vuelve a escribir /notag para reactivarlo.',
+          )
+        : pickLang(
+            language,
+            '🔔 Tu peux de nouveau être tagué(e) par /tagall.',
+            '🔔 You can be tagged by /tagall again.',
+            '🔔 Ya se te puede etiquetar con /tagall de nuevo.',
+          ),
     );
   });
 
   bot.command(['equipe', 'team', 'teamchat'], async (ctx) => {
     if (!ctx.from) return;
     const userId = BigInt(ctx.from.id);
-    const isFr = ctx.from.language_code === 'fr';
 
     const game = deps.gameManager.findByPlayer(userId);
     const player = game?.players.find((p) => p.id === userId);
 
     if (!game || !player || player.duelSquad === null) {
       await ctx.reply(
-        isFr
-          ? "⚔️ Cette commande n'est disponible que pendant une partie en Mode Duel d'Équipes."
-          : '⚔️ This command is only available during a Team Duel game.',
+        pickLang(
+          ctx.from.language_code,
+          "⚔️ Cette commande n'est disponible que pendant une partie en Mode Duel d'Équipes.",
+          '⚔️ This command is only available during a Team Duel game.',
+          '⚔️ Este comando solo está disponible durante una partida en Modo Duelo de Equipos.',
+        ),
       );
       return;
     }
     if (player.isDead) {
       await ctx.reply(
-        isFr
-          ? '💀 Les morts ne peuvent plus communiquer avec leur équipe.'
-          : '💀 The dead can no longer talk to their team.',
+        pickLang(
+          ctx.from.language_code,
+          '💀 Les morts ne peuvent plus communiquer avec leur équipe.',
+          '💀 The dead can no longer talk to their team.',
+          '💀 Los muertos ya no pueden comunicarse con su equipo.',
+        ),
       );
       return;
     }
@@ -878,9 +962,12 @@ export function createBot(env: Env, logger: Logger, deps: BotDependencies): Bot 
     const message = (ctx.match as string | undefined)?.trim();
     if (!message) {
       await ctx.reply(
-        isFr
-          ? '⚔️ Utilisation : /equipe <message> — transmis en privé à tous vos coéquipiers vivants.'
-          : '⚔️ Usage: /equipe <message> - privately relayed to every living teammate.',
+        pickLang(
+          ctx.from.language_code,
+          '⚔️ Utilisation : /equipe <message> — transmis en privé à tous vos coéquipiers vivants.',
+          '⚔️ Usage: /equipe <message> - privately relayed to every living teammate.',
+          '⚔️ Uso: /equipe <mensaje> — reenviado en privado a todos tus compañeros vivos.',
+        ),
       );
       return;
     }
@@ -889,9 +976,12 @@ export function createBot(env: Env, logger: Logger, deps: BotDependencies): Bot 
       (p) => p.duelSquad === player.duelSquad && p.id !== player.id && !p.isDead,
     );
     const senderMention = mentionOrPlain(player.id, player.name, player.isBot);
-    const prefix = isFr
-      ? `🛡️ <b>[Équipe]</b> ${senderMention} :`
-      : `🛡️ <b>[Team]</b> ${senderMention}:`;
+    const prefix = pickLang(
+      ctx.from.language_code,
+      `🛡️ <b>[Équipe]</b> ${senderMention} :`,
+      `🛡️ <b>[Team]</b> ${senderMention}:`,
+      `🛡️ <b>[Equipo]</b> ${senderMention}:`,
+    );
     const safeMessage = escapeHtml(message);
 
     await Promise.all(
@@ -904,12 +994,18 @@ export function createBot(env: Env, logger: Logger, deps: BotDependencies): Bot 
 
     await ctx.reply(
       teammates.length > 0
-        ? isFr
-          ? `✅ Message transmis à ${teammates.length} coéquipier(s).`
-          : `✅ Message relayed to ${teammates.length} teammate(s).`
-        : isFr
-          ? 'ℹ️ Vous êtes le dernier survivant de votre équipe - personne pour recevoir le message.'
-          : "ℹ️ You're the last survivor of your squad - nobody to receive the message.",
+        ? pickLang(
+            ctx.from.language_code,
+            `✅ Message transmis à ${teammates.length} coéquipier(s).`,
+            `✅ Message relayed to ${teammates.length} teammate(s).`,
+            `✅ Mensaje reenviado a ${teammates.length} compañero(s).`,
+          )
+        : pickLang(
+            ctx.from.language_code,
+            'ℹ️ Vous êtes le dernier survivant de votre équipe - personne pour recevoir le message.',
+            "ℹ️ You're the last survivor of your squad - nobody to receive the message.",
+            'ℹ️ Eres el último superviviente de tu equipo: nadie recibirá el mensaje.',
+          ),
     );
   });
 
@@ -923,11 +1019,14 @@ export function createBot(env: Env, logger: Logger, deps: BotDependencies): Bot 
       game = deps.gameManager.findByPlayer(userId);
     }
 
-    const isFr = ctx.from.language_code === 'fr';
-
     if (!game || game.phase === 'Ended' || game.phase === 'Joining') {
       await ctx.reply(
-        isFr ? "Il n'y a pas de partie active en cours." : 'There is no active game currently.',
+        pickLang(
+          ctx.from.language_code,
+          "Il n'y a pas de partie active en cours.",
+          'There is no active game currently.',
+          'No hay ninguna partida activa en curso.',
+        ),
       );
       return;
     }
@@ -935,9 +1034,12 @@ export function createBot(env: Env, logger: Logger, deps: BotDependencies): Bot 
     const player = game.players.find((p) => p.id === userId);
     if (!player || player.isDead) {
       await ctx.reply(
-        isFr
-          ? 'Seuls les joueurs vivants de la partie peuvent effectuer un claim.'
-          : 'Only living players in the game can claim a role.',
+        pickLang(
+          ctx.from.language_code,
+          'Seuls les joueurs vivants de la partie peuvent effectuer un claim.',
+          'Only living players in the game can claim a role.',
+          'Solo los jugadores vivos de la partida pueden reclamar un rol.',
+        ),
       );
       return;
     }
@@ -945,9 +1047,12 @@ export function createBot(env: Env, logger: Logger, deps: BotDependencies): Bot 
     const text = (ctx.message?.text ?? '').split(' ').slice(1).join(' ').trim();
     if (!text) {
       await ctx.reply(
-        isFr
-          ? 'Usage : /claim <rôle> (ex: /claim Voyante, /claim Villageois)'
-          : 'Usage: /claim <role> (e.g. /claim Seer, /claim Villager)',
+        pickLang(
+          ctx.from.language_code,
+          'Usage : /claim <rôle> (ex: /claim Voyante, /claim Villageois)',
+          'Usage: /claim <role> (e.g. /claim Seer, /claim Villager)',
+          'Uso: /claim <rol> (p. ej. /claim Vidente, /claim Aldeano)',
+        ),
       );
       return;
     }
@@ -957,9 +1062,12 @@ export function createBot(env: Env, logger: Logger, deps: BotDependencies): Bot 
 
     const playerMention = mentionHtml(userId, player.name);
     const safeClaimedRole = escapeHtml(claimedRole);
-    const announcement = isFr
-      ? `📢 <b>CLAIM :</b> ${playerMention} affirme être <b>${safeClaimedRole}</b> !`
-      : `📢 <b>CLAIM:</b> ${playerMention} claims to be <b>${safeClaimedRole}</b>!`;
+    const announcement = pickLang(
+      ctx.from.language_code,
+      `📢 <b>CLAIM :</b> ${playerMention} affirme être <b>${safeClaimedRole}</b> !`,
+      `📢 <b>CLAIM:</b> ${playerMention} claims to be <b>${safeClaimedRole}</b>!`,
+      `📢 <b>CLAIM:</b> ¡${playerMention} afirma ser <b>${safeClaimedRole}</b>!`,
+    );
 
     await ctx.api.sendMessage(Number(game.chatId), announcement, { parse_mode: 'HTML' });
   });
@@ -968,16 +1076,19 @@ export function createBot(env: Env, logger: Logger, deps: BotDependencies): Bot 
     if (!ctx.chat) return;
     const chatId = BigInt(ctx.chat.id);
     const group = await deps.groupRepository.getOrCreate(chatId, ctx.chat.title ?? null, null);
-    const isFr = group.language !== 'en';
+    const language = baseLanguage(group.language);
     const game =
       gameLoop.getGame(chatId) ??
       (ctx.from ? deps.gameManager.findByPlayer(BigInt(ctx.from.id)) : undefined);
 
     if (!game || game.phase === 'Ended' || game.phase === 'Joining') {
       await ctx.reply(
-        isFr
-          ? "Il n'y a pas de partie en cours dans ce groupe."
-          : 'No game currently running in this group.',
+        pickLang(
+          language,
+          "Il n'y a pas de partie en cours dans ce groupe.",
+          'No game currently running in this group.',
+          'No hay ninguna partida en curso en este grupo.',
+        ),
       );
       return;
     }
@@ -985,20 +1096,25 @@ export function createBot(env: Env, logger: Logger, deps: BotDependencies): Bot 
     const lines: string[] = [];
     for (const p of game.players) {
       const claim = game.claimsMap.get(p.id);
-      const status = p.isDead ? (isFr ? '💀 mort' : '💀 dead') : isFr ? '🙂 en vie' : '🙂 alive';
+      const status = p.isDead
+        ? pickLang(language, '💀 mort', '💀 dead', '💀 muerto')
+        : pickLang(language, '🙂 en vie', '🙂 alive', '🙂 vivo');
       const pMention = mentionOrPlain(p.id, p.name, p.isBot);
       if (claim) {
         lines.push(`• <b>${pMention}</b> (${status}) : <b>${escapeHtml(claim)}</b>`);
       } else {
         lines.push(
-          `• <b>${pMention}</b> (${status}) : <i>${isFr ? '(Aucun claim)' : '(No claim)'}</i>`,
+          `• <b>${pMention}</b> (${status}) : <i>${pickLang(language, '(Aucun claim)', '(No claim)', '(Sin claim)')}</i>`,
         );
       }
     }
 
-    const title = isFr
-      ? '📜 <b>RELEVÉ DES CLAIMS DE LA PARTIE :</b>\n\n'
-      : "📜 <b>THIS GAME'S CLAIMS RECAP:</b>\n\n";
+    const title = pickLang(
+      language,
+      '📜 <b>RELEVÉ DES CLAIMS DE LA PARTIE :</b>\n\n',
+      "📜 <b>THIS GAME'S CLAIMS RECAP:</b>\n\n",
+      '📜 <b>RESUMEN DE CLAIMS DE ESTA PARTIDA:</b>\n\n',
+    );
     await ctx.reply(title + lines.join('\n'), { parse_mode: 'HTML' });
   });
 
@@ -1223,11 +1339,12 @@ export function createBot(env: Env, logger: Logger, deps: BotDependencies): Bot 
     async (ctx) => {
       if (!ctx.chat || !ctx.from) return;
       if (ctx.chat.type === 'private') {
-        const lang = ctx.from.language_code === 'fr' ? 'fr' : 'en';
-        const msg =
-          lang === 'fr'
-            ? "⚠️ <b>Partie en Groupe Nécessaire</b>\n\nLes parties de Loup-Garou se jouent dans un <b>groupe Telegram</b> !\n1. Ajoutez le bot à votre groupe.\n2. Donnez-lui la permission d'envoyer des messages (ou mettez-le administrateur).\n3. Tapez <code>/startgame</code> (ou <code>/botgame</code> pour jouer avec des IA) dans le groupe !"
-            : '⚠️ <b>Group Play Required</b>\n\nWerewolf games must be played inside a <b>Telegram Group</b>!\n1. Add the bot to your Telegram group.\n2. Ensure the bot can send messages.\n3. Type <code>/startgame</code> (or <code>/botgame</code> for AI bots) in the group!';
+        const msg = pickLang(
+          ctx.from.language_code,
+          "⚠️ <b>Partie en Groupe Nécessaire</b>\n\nLes parties de Loup-Garou se jouent dans un <b>groupe Telegram</b> !\n1. Ajoutez le bot à votre groupe.\n2. Donnez-lui la permission d'envoyer des messages (ou mettez-le administrateur).\n3. Tapez <code>/startgame</code> (ou <code>/botgame</code> pour jouer avec des IA) dans le groupe !",
+          '⚠️ <b>Group Play Required</b>\n\nWerewolf games must be played inside a <b>Telegram Group</b>!\n1. Add the bot to your Telegram group.\n2. Ensure the bot can send messages.\n3. Type <code>/startgame</code> (or <code>/botgame</code> for AI bots) in the group!',
+          '⚠️ <b>Se Necesita una Partida en Grupo</b>\n\n¡Las partidas de Hombres Lobo se juegan dentro de un <b>grupo de Telegram</b>!\n1. Añade el bot a tu grupo de Telegram.\n2. Asegúrate de que el bot pueda enviar mensajes.\n3. ¡Escribe <code>/startgame</code> (o <code>/botgame</code> para jugar con bots de IA) en el grupo!',
+        );
         await ctx.reply(msg, { parse_mode: 'HTML' });
         return;
       }

@@ -26,6 +26,7 @@ import type { GameEvent } from '../../domain/game/game-event.js';
 import type { KillMethod } from '../../domain/game/kill-method.js';
 import type { Team } from '../../domain/game/team.js';
 import { WEATHER_DETAILS } from '../../domain/game/village-weather.js';
+import { pickLang } from '../i18n/language.js';
 import { generateGazette, type GazetteStory } from '../../domain/gazette/gazette-generator.js';
 import { generateAiGazette } from '../../domain/gazette/ai-gazette-generator.js';
 import {
@@ -248,10 +249,25 @@ export class GameLoop {
       await this.send(game.chatId, group.language, 'NightBeginsTimed', game.dayNumber, seconds);
       if (game.dayNumber === 1) {
         const weather = WEATHER_DETAILS[game.weather];
-        const isFr = group.language === 'fr';
-        const weatherTitle = isFr ? weather.titleFr : weather.titleEn;
-        const weatherDesc = isFr ? weather.descFr : weather.descEn;
-        const weatherMsg = `${weather.emoji} <b>MÉTÉO DU VILLAGE : ${weatherTitle}</b>\n<i>${weatherDesc}</i>`;
+        const weatherTitle = pickLang(
+          group.language,
+          weather.titleFr,
+          weather.titleEn,
+          weather.titleEs,
+        );
+        const weatherDesc = pickLang(
+          group.language,
+          weather.descFr,
+          weather.descEn,
+          weather.descEs,
+        );
+        const weatherLabel = pickLang(
+          group.language,
+          'MÉTÉO DU VILLAGE',
+          'VILLAGE WEATHER',
+          'CLIMA DE LA ALDEA',
+        );
+        const weatherMsg = `${weather.emoji} <b>${weatherLabel} : ${weatherTitle}</b>\n<i>${weatherDesc}</i>`;
         await this.sendRaw(game.chatId, weatherMsg);
       }
       await this.sendGifCategory(game.chatId, group, 'NightStart');
@@ -304,14 +320,18 @@ export class GameLoop {
       const status = this.t.translate(language, p.isDead ? 'Dead' : 'Alive');
       return `${mentionOrPlain(p.id, p.name, p.isBot)}${p.isDuelCaptain ? ' 👑' : ''} (${status})`;
     };
-    const labelA =
-      language === 'fr'
-        ? `🅰️ <b>Équipe A</b> — ${aliveCount(squadA)}/${squadA.length} en vie`
-        : `🅰️ <b>Squad A</b> — ${aliveCount(squadA)}/${squadA.length} alive`;
-    const labelB =
-      language === 'fr'
-        ? `🅱️ <b>Équipe B</b> — ${aliveCount(squadB)}/${squadB.length} en vie`
-        : `🅱️ <b>Squad B</b> — ${aliveCount(squadB)}/${squadB.length} alive`;
+    const labelA = pickLang(
+      language,
+      `🅰️ <b>Équipe A</b> — ${aliveCount(squadA)}/${squadA.length} en vie`,
+      `🅰️ <b>Squad A</b> — ${aliveCount(squadA)}/${squadA.length} alive`,
+      `🅰️ <b>Equipo A</b> — ${aliveCount(squadA)}/${squadA.length} en pie`,
+    );
+    const labelB = pickLang(
+      language,
+      `🅱️ <b>Équipe B</b> — ${aliveCount(squadB)}/${squadB.length} en vie`,
+      `🅱️ <b>Squad B</b> — ${aliveCount(squadB)}/${squadB.length} alive`,
+      `🅱️ <b>Equipo B</b> — ${aliveCount(squadB)}/${squadB.length} en pie`,
+    );
     return [labelA, ...squadA.map(line), '', labelB, ...squadB.map(line)].join('\n');
   }
 
@@ -466,10 +486,12 @@ export class GameLoop {
     const wolfCount = alive.filter((p) => p.team === 'Wolf').length;
     const neutralCount = alive.filter((p) => p.team !== 'Village' && p.team !== 'Wolf').length;
 
-    const reportMsg =
-      language === 'fr'
-        ? `📜 <b>Registres de l'Archiviste (Nuit ${dayNumber}) :</b>\n\n• 👱 <b>Villageois vivants :</b> ${villageCount}\n• 🐺 <b>Loups-Garous vivants :</b> ${wolfCount}\n• 🔮 <b>Rôles Neutres / Solos vivants :</b> ${neutralCount}`
-        : `📜 <b>Archivist Records (Night ${dayNumber}):</b>\n\n• 👱 <b>Living Villagers:</b> ${villageCount}\n• 🐺 <b>Living Werewolves:</b> ${wolfCount}\n• 🔮 <b>Living Neutrals / Solos:</b> ${neutralCount}`;
+    const reportMsg = pickLang(
+      language,
+      `📜 <b>Registres de l'Archiviste (Nuit ${dayNumber}) :</b>\n\n• 👱 <b>Villageois vivants :</b> ${villageCount}\n• 🐺 <b>Loups-Garous vivants :</b> ${wolfCount}\n• 🔮 <b>Rôles Neutres / Solos vivants :</b> ${neutralCount}`,
+      `📜 <b>Archivist Records (Night ${dayNumber}):</b>\n\n• 👱 <b>Living Villagers:</b> ${villageCount}\n• 🐺 <b>Living Werewolves:</b> ${wolfCount}\n• 🔮 <b>Living Neutrals / Solos:</b> ${neutralCount}`,
+      `📜 <b>Registros del Archivero (Noche ${dayNumber}):</b>\n\n• 👱 <b>Aldeanos vivos:</b> ${villageCount}\n• 🐺 <b>Hombres Lobo vivos:</b> ${wolfCount}\n• 🔮 <b>Roles Neutrales / Solitarios vivos:</b> ${neutralCount}`,
+    );
 
     await this.sendPmRaw(actor.id, reportMsg);
   }
@@ -649,17 +671,32 @@ export class GameLoop {
           judge.judgePardonChoice = null;
           const pardonKeyboard = new InlineKeyboard()
             .text(
-              group.language === 'fr' ? '⚖️ Accorder la Grâce' : '⚖️ Grant Pardon',
+              pickLang(
+                group.language,
+                '⚖️ Accorder la Grâce',
+                '⚖️ Grant Pardon',
+                '⚖️ Conceder el Indulto',
+              ),
               'judge_pardon',
             )
             .row()
-            .text(group.language === 'fr' ? '❌ Laisser exécuter' : '❌ Let Execute', 'judge_skip');
+            .text(
+              pickLang(
+                group.language,
+                '❌ Laisser exécuter',
+                '❌ Let Execute',
+                '❌ Dejar Ejecutar',
+              ),
+              'judge_skip',
+            );
 
           const condemnedMention = mentionOrPlain(condemned.id, condemned.name, condemned.isBot);
-          const promptMsg =
-            group.language === 'fr'
-              ? `⚖️ <b>DROIT DE GRÂCE DU JUGE !</b>\n\nLe village vient de condamner <b>${condemnedMention}</b> au gibet avec ${maxVotes} vote(s) !\n\nVoulez-vous exercer votre Droit de Grâce (unique) pour annuler cette exécution ?`
-              : `⚖️ <b>JUDGE'S PARDON!</b>\n\nThe village has condemned <b>${condemnedMention}</b> to the gallows with ${maxVotes} vote(s)!\n\nDo you want to use your unique Right of Pardon to save them?`;
+          const promptMsg = pickLang(
+            group.language,
+            `⚖️ <b>DROIT DE GRÂCE DU JUGE !</b>\n\nLe village vient de condamner <b>${condemnedMention}</b> au gibet avec ${maxVotes} vote(s) !\n\nVoulez-vous exercer votre Droit de Grâce (unique) pour annuler cette exécution ?`,
+            `⚖️ <b>JUDGE'S PARDON!</b>\n\nThe village has condemned <b>${condemnedMention}</b> to the gallows with ${maxVotes} vote(s)!\n\nDo you want to use your unique Right of Pardon to save them?`,
+            `⚖️ <b>¡DERECHO DE INDULTO DEL JUEZ!</b>\n\n¡La aldea acaba de condenar a <b>${condemnedMention}</b> a la horca con ${maxVotes} voto(s)!\n\n¿Quieres ejercer tu Derecho de Indulto (único) para anular esta ejecución?`,
+          );
 
           await this.bot.api
             .sendMessage(chatNumber(judge.id), promptMsg, {
@@ -764,10 +801,12 @@ export class GameLoop {
         const victim = resolution.playerId ? findName(game.players, resolution.playerId) : '';
         const judgeId = (resolution as any).judgeId;
         const judgeName = judgeId ? findName(game.players, judgeId) : '';
-        const msg =
-          language === 'fr'
-            ? `⚖️ <b>DROIT DE GRÂCE DU JUGE !</b>\n\n<i>Le Juge <b>${judgeName}</b> a frappé le tribunal de son marteau ! Il exerce son Droit de Grâce et annule l'exécution de <b>${victim}</b> ! Personne ne sera pendu aujourd'hui.</i>`
-            : `⚖️ <b>JUDGE'S PARDON!</b>\n\n<i>Judge <b>${judgeName}</b> strikes the gavel! Exercising the Right of Pardon, the execution of <b>${victim}</b> is cancelled! No one will be lynched today.</i>`;
+        const msg = pickLang(
+          language,
+          `⚖️ <b>DROIT DE GRÂCE DU JUGE !</b>\n\n<i>Le Juge <b>${judgeName}</b> a frappé le tribunal de son marteau ! Il exerce son Droit de Grâce et annule l'exécution de <b>${victim}</b> ! Personne ne sera pendu aujourd'hui.</i>`,
+          `⚖️ <b>JUDGE'S PARDON!</b>\n\n<i>Judge <b>${judgeName}</b> strikes the gavel! Exercising the Right of Pardon, the execution of <b>${victim}</b> is cancelled! No one will be lynched today.</i>`,
+          `⚖️ <b>¡DERECHO DE INDULTO DEL JUEZ!</b>\n\n<i>¡El Juez <b>${judgeName}</b> golpea la mesa con su mazo! Ejerce su Derecho de Indulto y anula la ejecución de <b>${victim}</b>! Hoy no se ahorcará a nadie.</i>`,
+        );
         await this.bot.api
           .sendMessage(chatNumber(game.chatId), msg, { parse_mode: 'HTML' })
           .catch(() => null);

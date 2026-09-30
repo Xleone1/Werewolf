@@ -10,6 +10,7 @@ import type { Player } from '../../domain/game/player.js';
 import { roleName } from '../../domain/roles/role.js';
 import { getTeamForRole } from '../../domain/game/team.js';
 import { escapeHtml } from './mention.js';
+import { pickLang } from '../i18n/language.js';
 import type { GroupRepository } from '../persistence/group.repository.js';
 
 /** Floor between two AI-generated (paid Gemini call) chat replies in the same group - independent
@@ -247,7 +248,6 @@ export class GroupChatListener {
   }
 
   private buildGameContext(game: Game, botPlayer: Player, language: string): AiGameContext {
-    const isFr = language !== 'en';
     const recentDeaths = game.players
       .filter((p) => p.isDead)
       .map((p) => `${p.name} (${roleName(p.role)})`);
@@ -261,16 +261,22 @@ export class GroupChatListener {
         .map((p) => p.name);
       if (wolfTeammates.length > 0) {
         knownInformation.push(
-          isFr
-            ? `Tes co-équipiers Loups vivants sont : ${wolfTeammates.join(', ')}`
-            : `Your living Wolf teammates are: ${wolfTeammates.join(', ')}`,
+          pickLang(
+            language,
+            `Tes co-équipiers Loups vivants sont : ${wolfTeammates.join(', ')}`,
+            `Your living Wolf teammates are: ${wolfTeammates.join(', ')}`,
+            `Tus compañeros Lobos vivos son: ${wolfTeammates.join(', ')}`,
+          ),
         );
       }
     } else if (roleName(botPlayer.role) === 'Tanner') {
       knownInformation.push(
-        isFr
-          ? `Tu es le Tanneur. Ton BUT UNIQUE est de te faire lyncher par le village pour GAGNER la partie !`
-          : `You are the Tanner. Your ONLY GOAL is to get yourself lynched by the village to WIN the game!`,
+        pickLang(
+          language,
+          `Tu es le Tanneur. Ton BUT UNIQUE est de te faire lyncher par le village pour GAGNER la partie !`,
+          `You are the Tanner. Your ONLY GOAL is to get yourself lynched by the village to WIN the game!`,
+          `Eres el Curtidor. Tu ÚNICO OBJETIVO es que el pueblo te linche para GANAR la partida.`,
+        ),
       );
     }
 

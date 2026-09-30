@@ -24,6 +24,45 @@ describe('loadLocales (real locales/ directory)', () => {
       expect(() => t.translate(code, 'PlayerStartedGame', 'Alice')).not.toThrow();
     }
   });
+
+  it('ships a Spanish locale with full key and placeholder parity against English', async () => {
+    const locales = await loadLocales();
+    expect(locales.has('es')).toBe(true);
+
+    const en = locales.get('en')!;
+    const es = locales.get('es')!;
+    expect(es.base).toBe('en');
+
+    const enKeys = Object.keys(en.strings).sort();
+    const esKeys = Object.keys(es.strings).sort();
+    expect(esKeys).toEqual(enKeys);
+
+    const placeholders = (variants: string[]) =>
+      (variants.join(' ').match(/\{\d+\}/g) ?? []).sort().join(',');
+    for (const key of enKeys) {
+      expect(placeholders(es.strings[key]!)).toBe(placeholders(en.strings[key]!));
+    }
+  });
+
+  it('narrates a gameplay key in Spanish instead of falling back to English', async () => {
+    const locales = await loadLocales();
+    const t = new Translator(locales, getDefaultLocale(locales));
+
+    const spanish = t.translate('es', 'PlayerStartedGame', 'Alice');
+    const english = t.translate('en', 'PlayerStartedGame', 'Alice');
+    expect(spanish).toContain('Alice');
+    expect(spanish).not.toBe(english);
+
+    // A French locale still resolves to its own wording, untouched.
+    expect(t.translate('fr', 'PlayerStartedGame', 'Alice')).not.toBe(english);
+
+    // Translator keys off the exact locale code; a regional tag that isn't loaded falls back to
+    // the default locale (callers normalize via `baseLanguage()` before passing one in).
+    const englishVariants = locales
+      .get('en')!
+      .strings.PlayerStartedGame!.map((v) => v.replace('{0}', 'Alice'));
+    expect(englishVariants).toContain(t.translate('es-MX', 'PlayerStartedGame', 'Alice'));
+  });
 });
 
 describe('loadLocales (language packs, temp directory)', () => {

@@ -1,0 +1,2112 @@
+{
+  "code": "es",
+  "name": "Español",
+  "base": "en",
+  "strings": {
+    "Pong": [
+      "pong"
+    ],
+    "SpamWarning": [
+      "Por favor, no me hagas spam. La próxima vez serás baneado automáticamente."
+    ],
+    "SpamBanned": [
+      "Has sido baneado por hacer spam. Tu periodo de baneo es: {0}"
+    ],
+    "SpamBanDuration12h": [
+      "12 horas"
+    ],
+    "SpamBanDuration24h": [
+      "24 horas"
+    ],
+    "SpamBanDuration3d": [
+      "3 días"
+    ],
+    "SpamBanPermanent": [
+      "Permanente. Has alcanzado el límite máximo de baneos temporales por hacer spam."
+    ],
+    "WelcomeMessage": [
+      "¡Bienvenido a Hombres Lobo! Añádeme a un grupo y usa /startgame para jugar.",
+      "Hola, soy el bot de Hombres Lobo. Añádeme a un grupo y escribe /startgame para empezar una partida."
+    ],
+    "PlayerStartedGame": [
+      "¡{0} ha iniciado una nueva partida de Hombres Lobo! Escribe /join para jugar.",
+      "Una partida de Hombres Lobo ha sido iniciada por {0}. ¡Envía /join para unirte!"
+    ],
+    "PlayerStartedChaosGame": [
+      "¡{0} ha iniciado una partida de Hombres Lobo en modo CAOS! Todo puede pasar. Escribe /join para jugar.",
+      "Se acerca el modo Caos, cortesía de {0}. Escribe /join si te atreves."
+    ],
+    "JoinButton": [
+      "¡Unirse a la partida!"
+    ],
+    "HaveJoined": [
+      "Jugadores que se han unido hasta ahora: {0}"
+    ],
+    "MinuteLeftToJoin": [
+      "¡Queda 1 minuto para unirse!"
+    ],
+    "SecondsLeftToJoin": [
+      "¡Quedan {0} segundos para unirse!"
+    ],
+    "NotEnoughPlayers": [
+      "No se han unido suficientes jugadores. La partida ha sido cancelada."
+    ],
+    "TeamDuelNeedsEvenPlayers": [
+      "⚔️ El Duelo por Equipos necesita un número par de jugadores para formar dos escuadrones iguales. La partida ha sido cancelada: vuelve a ejecutar /startduel con un jugador más (o uno menos)."
+    ],
+    "StartingGameWait": [
+      "¡Ya están todos! Asignando roles, espera un momento..."
+    ],
+    "DayTime": [
+      "☀️ El sol sale sobre la Aldea (Día {0}). ¡Tienes {1} para debatir y encontrar a los lobos!"
+    ],
+    "NightFalls": [
+      "Cae la noche sobre la aldea. Todos, revisad vuestros mensajes privados."
+    ],
+    "LynchTime": [
+      "¡Es hora de votar! Tienes {0} para decidir a quién linchar."
+    ],
+    "PacifistNoLynchNow": [
+      "El Pacifista ha convencido a la aldea de no linchar a nadie hoy."
+    ],
+    "TroubleDoubleLynchNow": [
+      "Algo no va bien... la aldea votará dos veces hoy."
+    ],
+    "TroubleDoubleLynchSecondVote": [
+      "🤯 <b>¡SEGUNDA VOTACIÓN DE LINCHAMIENTO!</b>\n¡Debido al caos del Alborotador, la aldea procede con su SEGUNDA ejecución hoy!"
+    ],
+    "NoOneCastLynch": [
+      "Hoy no se ha linchado a nadie: los votos estaban repartidos."
+    ],
+    "VillagersWin": [
+      "La aldea ha erradicado toda amenaza. ¡Ganan los aldeanos!"
+    ],
+    "WolvesWin": [
+      "Los lobos han devorado la aldea. ¡Ganan los lobos!"
+    ],
+    "TannerWin": [
+      "El Curtidor consiguió exactamente lo que quería: que lo lincharan. ¡Gana el Curtidor!"
+    ],
+    "CultWins": [
+      "El culto ha convertido a toda la aldea. ¡Gana el culto!"
+    ],
+    "SerialKillerWins": [
+      "El Asesino en Serie es el último que queda en pie. ¡Gana el Asesino en Serie!"
+    ],
+    "ArsonistWins": [
+      "El Incendiario ha quemado toda la aldea. ¡Gana el Incendiario!"
+    ],
+    "LoversWin": [
+      "Contra todo pronóstico, los dos amantes sobrevivieron juntos. ¡Ganan los Amantes!"
+    ],
+    "NoWinner": [
+      "La partida terminó sin ningún ganador."
+    ],
+    "PlayersAlive": [
+      "Jugadores vivos"
+    ],
+    "RanAway": [
+      "Huyó"
+    ],
+    "Dead": [
+      "💀 Muerto"
+    ],
+    "Alive": [
+      "🙂 Vivo"
+    ],
+    "Won": [
+      "Ganó"
+    ],
+    "Lost": [
+      "Perdió"
+    ],
+    "RemainingPlayersEnd": [
+      "Jugadores vivos restantes, roles y equipo:"
+    ],
+    "EndTime": [
+      "Duración de la partida: {0}"
+    ],
+    "VillageTeamEnd": [
+      "Equipo Aldea"
+    ],
+    "WolfTeamEnd": [
+      "Equipo Lobo"
+    ],
+    "CultTeamEnd": [
+      "Equipo Culto"
+    ],
+    "TannerTeamEnd": [
+      "Equipo Curtidor"
+    ],
+    "NeutralTeamEnd": [
+      "Equipo Neutral"
+    ],
+    "SerialKillerTeamEnd": [
+      "Equipo AS"
+    ],
+    "ArsonistTeamEnd": [
+      "Equipo Incendiario"
+    ],
+    "ThiefTeamEnd": [
+      "Equipo Ladrón"
+    ],
+    "GameAlreadyRunning": [
+      "Ya hay una partida en curso en este grupo."
+    ],
+    "NoGameRunning": [
+      "Ahora mismo no hay ninguna partida en curso en este grupo."
+    ],
+    "GameKilledMsg": [
+      "Un administrador ha detenido esta partida a la fuerza."
+    ],
+    "JoinFromGroup": [
+      "Solo puedes usar /join desde un chat de grupo."
+    ],
+    "YouJoined": [
+      "¡Te has unido a la partida de {0}!"
+    ],
+    "PlayerLimitReached": [
+      "Esta partida está llena: no puedes unirte ahora mismo."
+    ],
+    "NameExists": [
+      "Alguien en esta partida ya usa el nombre \"{0}\": cambia tu nombre de Telegram e inténtalo de nuevo con /join."
+    ],
+    "NotPlaying": [
+      "Ahora mismo no estás en esta partida."
+    ],
+    "FleeDisabled": [
+      "Huir está desactivado en este grupo una vez que la partida ha empezado."
+    ],
+    "GroupAdminOnly": [
+      "Solo un administrador del grupo puede hacer eso."
+    ],
+    "CantExtend": [
+      "Ya has ampliado el tiempo de unión una vez en esta partida."
+    ],
+    "SecondsAdded": [
+      "¡Se han añadido {0} segundos! Quedan {1} segundos para unirse."
+    ],
+    "SecondsRemoved": [
+      "¡Se han quitado {0} segundos! Quedan {1} segundos para unirse."
+    ],
+    "FledGame": [
+      "¡{0} ha huido de la partida!"
+    ],
+    "ForceStarted": [
+      "¡Un administrador ha forzado el inicio de la partida!"
+    ],
+    "ForceStartNotAdmin": [
+      "Solo un administrador del grupo puede forzar el inicio de la partida."
+    ],
+    "PlayersInGame": [
+      "Jugadores en esta partida ({0}):\n{1}"
+    ],
+    "NightRecap": [
+      "🌙 <b>Resumen de la Noche {0}</b>\n\n{1}"
+    ],
+    "YourRoleIs": [
+      "Tu rol en esta partida es: {0}"
+    ],
+    "PMFailed": [
+      "No he podido enviar un mensaje privado a: {0}. Debe iniciar un chat conmigo primero para recibir su rol y sus menús nocturnos."
+    ],
+    "GameStarting": [
+      "Asignando roles y enviando mensajes a cada jugador; esto puede tardar unos segundos..."
+    ],
+    "MissionOffer": [
+      "🎯 <b>¡MISIÓN SECRETA DISPONIBLE!</b>\n<i>Solo visible para ti.</i>\n\n<b>{0}</b>\n{1}\n\n💰 Recompensa si la completas: <b>+{2} puntos</b>\n\n⚠️ Esta misión es totalmente opcional: tú decides."
+    ],
+    "MissionAcceptButton": [
+      "✅ Aceptar la misión"
+    ],
+    "MissionDeclineButton": [
+      "❌ Rechazar"
+    ],
+    "MissionAccepted": [
+      "🎯 ¡Misión aceptada! Mucha suerte, y recuerda: es un secreto."
+    ],
+    "MissionDeclined": [
+      "Misión rechazada. Jugarás con normalidad, sin objetivo secundario esta partida."
+    ],
+    "MissionResultSuccess": [
+      "🏆 <b>¡MISIÓN CUMPLIDA!</b>\n\n{0}\n\n+{1} puntos añadidos a tu marcador. ¡Bien hecho!"
+    ],
+    "MissionResultFailure": [
+      "💔 <b>Misión fallida...</b>\n\n{0}\n\nSin bonus esta vez: ¡mejor suerte en la próxima partida!"
+    ],
+    "Mission_survivor_Title": [
+      "🛡️ Superviviente"
+    ],
+    "Mission_survivor_Desc": [
+      "Seguir vivo cuando termine la partida, sin importar cómo."
+    ],
+    "Mission_unsinkable_Title": [
+      "🔥 Inhundible"
+    ],
+    "Mission_unsinkable_Desc": [
+      "Sobrevive al menos 3 noches."
+    ],
+    "Mission_lastStanding_Title": [
+      "🧭 Último en Pie"
+    ],
+    "Mission_lastStanding_Desc": [
+      "Estar entre los 3 últimos jugadores todavía vivos."
+    ],
+    "Mission_sleepless_Title": [
+      "🌙 Noche en Vela"
+    ],
+    "Mission_sleepless_Desc": [
+      "Sobrevive a la primera noche de la partida."
+    ],
+    "Mission_veteran_Title": [
+      "📅 Veterano"
+    ],
+    "Mission_veteran_Desc": [
+      "Seguir vivo en el Día 5 o más tarde."
+    ],
+    "Mission_closeCall_Title": [
+      "🎭 Por los Pelos"
+    ],
+    "Mission_closeCall_Desc": [
+      "Sobrevive a una ronda de linchamiento en la que tuviste más votos en contra."
+    ],
+    "Mission_executioner_Title": [
+      "🎯 Verdugo"
+    ],
+    "Mission_executioner_Desc": [
+      "Vota por la víctima que acaba siendo linchada, al menos una vez."
+    ],
+    "Mission_wolfHunter_Title": [
+      "🐺 Cazador de Lobos"
+    ],
+    "Mission_wolfHunter_Desc": [
+      "Vota por un miembro de la manada de lobos, al menos una vez."
+    ],
+    "Mission_vigilante_Title": [
+      "⚖️ Justiciero"
+    ],
+    "Mission_vigilante_Desc": [
+      "Vota por alguien de fuera de tu propio equipo, al menos una vez."
+    ],
+    "Mission_earlyVoter_Title": [
+      "🏆 Favorito del Maestro"
+    ],
+    "Mission_earlyVoter_Desc": [
+      "Sé el primero en votar en una ronda de linchamiento, al menos 2 veces en la partida."
+    ],
+    "Mission_peacekeeper_Title": [
+      "🕊️ Pacificador"
+    ],
+    "Mission_peacekeeper_Desc": [
+      "Abstente de votar al menos 2 veces, sin ser eliminado nunca por inactividad."
+    ],
+    "Mission_bandwagon_Title": [
+      "🌊 Carroza"
+    ],
+    "Mission_bandwagon_Desc": [
+      "Vota con la mayoría ganadora, al menos 3 veces en la partida."
+    ],
+    "Mission_ghost_Title": [
+      "🤫 Fantasma"
+    ],
+    "Mission_ghost_Desc": [
+      "No recibas ni un solo voto en contra en toda la partida."
+    ],
+    "Mission_target_Title": [
+      "🔦 Objetivo"
+    ],
+    "Mission_target_Desc": [
+      "Recibe votos de al menos 3 jugadores distintos a lo largo de la partida, y sobrevive de todos modos."
+    ],
+    "Mission_maverick_Title": [
+      "🎲 Inconformista"
+    ],
+    "Mission_maverick_Desc": [
+      "Vota contra la mayoría, al menos 3 veces en la partida."
+    ],
+    "Mission_untouchable_Title": [
+      "👑 Intocable"
+    ],
+    "Mission_untouchable_Desc": [
+      "Sobrevive a 2 rondas de linchamiento distintas en las que tuviste más votos en contra."
+    ],
+    "Mission_silent_Title": [
+      "🥷 Invisible"
+    ],
+    "Mission_silent_Desc": [
+      "No uses nunca el comando /claims en toda la partida."
+    ],
+    "Mission_steadfast_Title": [
+      "🧊 Firme"
+    ],
+    "Mission_steadfast_Desc": [
+      "No cambies nunca tu voto una vez emitido, dentro de la misma ronda de linchamiento."
+    ],
+    "Mission_scout_Title": [
+      "🚀 Explorador"
+    ],
+    "Mission_scout_Desc": [
+      "Estar entre los 3 primeros jugadores en unirse al vestíbulo de la partida."
+    ],
+    "Mission_punctual_Title": [
+      "⏱️ Puntual"
+    ],
+    "Mission_punctual_Desc": [
+      "Vota en cada ronda de linchamiento, sin perderte ninguna."
+    ],
+    "Mission_everPresent_Title": [
+      "🎖️ Siempre Presente"
+    ],
+    "Mission_everPresent_Desc": [
+      "Nunca seas eliminado por inactividad ni por huir de la partida."
+    ],
+    "Mission_marathoner_Title": [
+      "🌗 Maratoniano"
+    ],
+    "Mission_marathoner_Desc": [
+      "Participa en una partida que llegue al Día 6 o más tarde."
+    ],
+    "Mission_doubleSurvivor_Title": [
+      "🔂 Doble Superviviente"
+    ],
+    "Mission_doubleSurvivor_Desc": [
+      "Sobrevive a una segunda ronda de linchamiento forzada por el Alborotador el mismo día."
+    ],
+    "Mission_lastSecond_Title": [
+      "🕰️ Último Segundo"
+    ],
+    "Mission_lastSecond_Desc": [
+      "Emite un voto de linchamiento en los últimos 10 segundos de la ventana de votación, al menos una vez."
+    ],
+    "Mission_champion_Title": [
+      "🏅 Campeón"
+    ],
+    "Mission_champion_Desc": [
+      "Seguir vivo en el momento en que tu equipo gana la partida."
+    ],
+    "Mission_martyr_Title": [
+      "⚰️ Sacrificio Útil"
+    ],
+    "Mission_martyr_Desc": [
+      "Muere antes del final, pero que tu equipo gane la partida de todos modos."
+    ],
+    "Mission_resistant_Title": [
+      "🎭 Resistente"
+    ],
+    "Mission_resistant_Desc": [
+      "Estar en el equipo perdedor, pero sobrevivir hasta el final de la partida de todos modos."
+    ],
+    "Mission_chaosSurvivor_Title": [
+      "🧨 Superviviente del Caos"
+    ],
+    "Mission_chaosSurvivor_Desc": [
+      "Sobrevive a una partida con 3 o más roles asesinos en juego a la vez (Lobo, Asesino en Serie, Incendiario...)."
+    ],
+    "Mission_stealthWinner_Title": [
+      "🥇 Ganador Sigiloso"
+    ],
+    "Mission_stealthWinner_Desc": [
+      "Gana la partida sin recibir nunca un solo voto en contra."
+    ],
+    "Mission_prophet_Title": [
+      "🔮 Profeta"
+    ],
+    "Mission_prophet_Desc": [
+      "Vota por alguien de fuera de tu propio equipo, ya desde la primera ronda de linchamiento (Día 1)."
+    ],
+    "Mission_rivalJure_Title": [
+      "🗡️ Rival Jurado"
+    ],
+    "Mission_rivalJure_Desc": [
+      "{0} debe morir antes que tú: sobrevívele, o muere después que él."
+    ],
+    "Mission_raceAgainstDeath_Title": [
+      "⏳ Carrera contra la Muerte"
+    ],
+    "Mission_raceAgainstDeath_Desc": [
+      "{0} debe morir antes del Día 3."
+    ],
+    "Mission_longevity_Title": [
+      "📆 Longevidad"
+    ],
+    "Mission_longevity_Desc": [
+      "Sobrevive al menos 2 días más que {0}."
+    ],
+    "Mission_commonFall_Title": [
+      "💀 Caída Común"
+    ],
+    "Mission_commonFall_Desc": [
+      "Muere el mismo día que {0}."
+    ],
+    "Mission_outlastTarget_Title": [
+      "🔥 Sobrevivir a {0}"
+    ],
+    "Mission_outlastTarget_Desc": [
+      "Estar vivo al final de la partida mientras {0} no lo está."
+    ],
+    "Mission_onlyOneReturns_Title": [
+      "⚔️ Solo Uno Regresa"
+    ],
+    "Mission_onlyOneReturns_Desc": [
+      "O tú o {0} debéis morir antes de que termine la partida."
+    ],
+    "Mission_bodyguard_Title": [
+      "🛡️ Guardaespaldas"
+    ],
+    "Mission_bodyguard_Desc": [
+      "{0} debe estar vivo al final de la partida."
+    ],
+    "Mission_faithful_Title": [
+      "🤝 Fiel"
+    ],
+    "Mission_faithful_Desc": [
+      "No votes nunca contra {0} en toda la partida."
+    ],
+    "Mission_unsinkableDuo_Title": [
+      "👥 Dúo Inhundible"
+    ],
+    "Mission_unsinkableDuo_Desc": [
+      "Tú y {0} debéis estar vivos al final de la partida."
+    ],
+    "Mission_sameFate_Title": [
+      "🏆 Mismo Destino"
+    ],
+    "Mission_sameFate_Desc": [
+      "{0} debe ganar la partida en el mismo bando que tú."
+    ],
+    "Mission_secretSaver_Title": [
+      "😇 Salvador Secreto"
+    ],
+    "Mission_secretSaver_Desc": [
+      "{0} debe sobrevivir a una ronda de linchamiento en la que tuvo más votos en contra."
+    ],
+    "Mission_travelBuddy_Title": [
+      "🚶 Compañero de Viaje"
+    ],
+    "Mission_travelBuddy_Desc": [
+      "Tú y {0} debéis seguir vivos en el Día 3."
+    ],
+    "Mission_manhunt_Title": [
+      "🎯 Cacería"
+    ],
+    "Mission_manhunt_Desc": [
+      "La aldea debe linchar a {0}."
+    ],
+    "Mission_plot_Title": [
+      "🗳️ Conspiración"
+    ],
+    "Mission_plot_Desc": [
+      "Vota contra {0} al menos 2 veces durante la partida."
+    ],
+    "Mission_quickExecution_Title": [
+      "⚡ Ejecución Rápida"
+    ],
+    "Mission_quickExecution_Desc": [
+      "{0} debe morir antes del Día 2."
+    ],
+    "Mission_nightShadow_Title": [
+      "🌑 Sombra Nocturna"
+    ],
+    "Mission_nightShadow_Desc": [
+      "{0} debe morir de noche."
+    ],
+    "Mission_persistentTracker_Title": [
+      "🕵️ Rastreador"
+    ],
+    "Mission_persistentTracker_Desc": [
+      "Vota contra {0} el mismo día en que acaba siendo linchado."
+    ],
+    "Mission_insistentVoter_Title": [
+      "🔁 Insistente"
+    ],
+    "Mission_insistentVoter_Desc": [
+      "Vota contra {0} cada ronda mientras siga vivo."
+    ],
+    "Mission_sameWavelength_Title": [
+      "📡 Misma Sintonía"
+    ],
+    "Mission_sameWavelength_Desc": [
+      "Vota por el mismo objetivo que {0}, al menos 2 veces."
+    ],
+    "Mission_freeElectron_Title": [
+      "🎲 Electrón Libre"
+    ],
+    "Mission_freeElectron_Desc": [
+      "No votes nunca por el mismo objetivo que {0}, en cada ronda en que ambos hayáis votado."
+    ],
+    "Mission_onHerHeels_Title": [
+      "👣 Pisándole los Talones"
+    ],
+    "Mission_onHerHeels_Desc": [
+      "Vota contra {0} el día en que recibe su primer voto de la partida."
+    ],
+    "Mission_loner_Title": [
+      "🐺 Solitario"
+    ],
+    "Mission_loner_Desc": [
+      "{0} no debe votar nunca contra ti en toda la partida."
+    ],
+    "Mission_blindTrust_Title": [
+      "🙏 Confianza Ciega"
+    ],
+    "Mission_blindTrust_Desc": [
+      "{0} debe votar contra ti al menos una vez durante la partida."
+    ],
+    "Mission_rightHand_Title": [
+      "🤜 Mano Derecha"
+    ],
+    "Mission_rightHand_Desc": [
+      "Vota por la misma persona que {0}, el último día de la partida."
+    ],
+    "Mission_swornEnemies_Title": [
+      "⚔️ Enemigos Jurados"
+    ],
+    "Mission_swornEnemies_Desc": [
+      "Acaba en el bando opuesto a {0}, y gana la partida."
+    ],
+    "Mission_revengeAccomplished_Title": [
+      "🩸 Venganza Cumplida"
+    ],
+    "Mission_revengeAccomplished_Desc": [
+      "{0} debe morir antes que tú, y tú debes ganar la partida."
+    ],
+    "Mission_sacrifice_Title": [
+      "🕯️ Sacrificio"
+    ],
+    "Mission_sacrifice_Desc": [
+      "Muere antes del final, siempre que {0} sobreviva hasta el final."
+    ],
+    "Mission_mirrorFate_Title": [
+      "🪞 Espejo"
+    ],
+    "Mission_mirrorFate_Desc": [
+      "Termina la partida con el mismo estado que {0} (ambos vivos, o ambos muertos)."
+    ],
+    "Mission_triumphOver_Title": [
+      "🥇 Triunfo"
+    ],
+    "Mission_triumphOver_Desc": [
+      "{0} debe perder la partida, mientras tú la ganas."
+    ],
+    "Mission_heir_Title": [
+      "👑 Heredero"
+    ],
+    "Mission_heir_Desc": [
+      "Estar vivo cuando {0} muera, y ganar la partida."
+    ],
+    "NightBeginsTimed": [
+      "Cae la Noche {0}. Tienes {1} segundos: revisa tus mensajes privados."
+    ],
+    "AskTarget": [
+      "Elige tu objetivo para esta noche:"
+    ],
+    "AskSeer": [
+      "¿De quién te gustaría ver la verdadera naturaleza?"
+    ],
+    "AskSorcerer": [
+      "¿A quién te gustaría comprobar en busca de influencia mágica?"
+    ],
+    "AskOracle": [
+      "¿De quién te gustaría recibir un señuelo de rol?"
+    ],
+    "AskFool": [
+      "¿De quién te gustaría adivinar el rol, en un destello de (poco fiable) clarividencia?"
+    ],
+    "AskGuardianAngel": [
+      "¿A quién te gustaría proteger esta noche?"
+    ],
+    "AskHarlot": [
+      "¿Con quién te gustaría pasar la noche?"
+    ],
+    "HarlotVisitConfirmed": [
+      "😉 Esta noche, vas a visitar a {0}."
+    ],
+    "AskSnowWolf": [
+      "¿A quién te gustaría congelar esta noche?"
+    ],
+    "AskWolfPack": [
+      "¿A quién debería devorar la manada esta noche?"
+    ],
+    "AskTrapperWolf": [
+      "🕸️ ¿La casa de quién quieres atrapar esta noche? (un solo uso por partida)"
+    ],
+    "TrapperWolfTrapSetMsg": [
+      "🕸️ Tu trampa está puesta esta noche a las afueras de la casa de {0}. Cualquiera que venga a visitarle verá su acción neutralizada."
+    ],
+    "AskChameleonWolf": [
+      "🎭 ¿De quién quieres tomar prestada la apariencia de rol esta noche? (opcional)"
+    ],
+    "ChameleonDisguiseChosenMsg": [
+      "🎭 Esta noche, aparecerás como {0} ante los poderes de detección."
+    ],
+    "AskViperWolf": [
+      "🧪 ¿A qué jugador quieres envenenar esta noche? (un solo uso por partida; la víctima muere al atardecer de mañana)"
+    ],
+    "ViperWolfPoisonedMsg": [
+      "🧪 El veneno ya corre por las venas de {0}. Sobrevivirá al día de mañana... pero no al atardecer."
+    ],
+    "AskHowlerWolf": [
+      "🐺🌙 ¿Quieres desatar tu aullido aterrador esta noche? (el jugador que elijas da igual; un solo uso por partida)"
+    ],
+    "HowlerWolfHowledMsg": [
+      "🐺🌙 Tu aullido resuena en la noche. La votación de linchamiento de mañana será anónima."
+    ],
+    "HowlerWolfEffectPublic": [
+      "🐺🌙 Un aullido aterrador resonó en la noche... Los votos de linchamiento de hoy serán anónimos."
+    ],
+    "AskHypnotistWolf": [
+      "🌀 ¿A qué jugador quieres hipnotizar esta noche? (un solo uso por partida)"
+    ],
+    "AskHypnotistWolfSecond": [
+      "🌀 ¿Contra quién debería dirigirse su voto de linchamiento mañana?"
+    ],
+    "HypnotistWolfForcedVoteMsg": [
+      "🌀 {0} está hipnotizado. Mañana, su voto de linchamiento se dirigirá automáticamente contra {1}, sin que se dé cuenta."
+    ],
+    "BerserkerWolfEnragedMsg": [
+      "😡🐺 ¡Acaban de linchar a un miembro de tu manada! Tu furia estalla: esta noche, la manada puede eliminar a DOS víctimas."
+    ],
+    "AskSerialKiller": [
+      "¿Quién es tu próxima víctima?"
+    ],
+    "AskCultistHunter": [
+      "¿A quién sospechas que es un Cultista?"
+    ],
+    "AskCultist": [
+      "¿A quién debería intentar convertir el culto esta noche?"
+    ],
+    "CultConversionSucceeded": [
+      "🔮 Tu intento de conversión ha funcionado: ¡{0} se ha unido al Culto!"
+    ],
+    "CultConversionFailedMsg": [
+      "🔮 Tu intento de conversión sobre {0} ha fallado esta noche. Inténtalo de nuevo mañana."
+    ],
+    "AskChemist": [
+      "¿A quién te gustaría envenenar?"
+    ],
+    "AskThief": [
+      "¿De quién te gustaría robar el rol?"
+    ],
+    "AskArsonist": [
+      "¿A quién te gustaría rociar con gasolina?"
+    ],
+    "SparkButton": [
+      "🔥 ¡Prender fuego a todos los rociados!"
+    ],
+    "AskWildChild": [
+      "¿A quién idolatras? Si muere, te convertirás en Lobo."
+    ],
+    "AskDoppelganger": [
+      "¿De quién te gustaría copiar el rol si muere?"
+    ],
+    "RoleModelChosenMsg": [
+      "🧬 Anotado: {0} es ahora tu modelo a seguir."
+    ],
+    "AskCupidFirst": [
+      "Elige a la primera persona que se enamorará:"
+    ],
+    "AskCupidSecond": [
+      "Elige a la segunda persona que se enamorará:"
+    ],
+    "CupidPairingConfirmed": [
+      "💘 Hecho: {0} y {1} ahora están perdidamente enamorados el uno del otro."
+    ],
+    "AbstainButton": [
+      "Saltar / Abstenerse"
+    ],
+    "ChoiceRecorded": [
+      "¡Entendido!"
+    ],
+    "SeerSees": [
+      "Miras en lo más profundo del alma de {0}... es un {1}."
+    ],
+    "SorcererDetects": [
+      "¡Tu magia revela que {0} es un {1}!"
+    ],
+    "SorcererNothing": [
+      "Tu magia no detecta nada inusual en {0}."
+    ],
+    "OracleSees": [
+      "Los espíritus te muestran una visión sobre {0}: podría ser un {1}... o puede que no."
+    ],
+    "OracleNothing": [
+      "Los espíritus están en silencio sobre {0} esta noche: todos los demás roles ya están contabilizados."
+    ],
+    "FoolSees": [
+      "En un momento de lucidez, vislumbras que {0} es un {1}."
+    ],
+    "FoolSeesNothing": [
+      "Intentas vislumbrar la verdadera naturaleza de {0}, pero tu visión sigue frustrantemente en blanco."
+    ],
+    "AugurSees": [
+      "Tus visiones revelan que NO hay un {0} en esta partida."
+    ],
+    "AugurNothing": [
+      "Tus visiones están en silencio esta noche: ya has visto todo lo que había que ver."
+    ],
+    "GraveDugMsg": [
+      "Registras las tumbas de los recién fallecidos y cuentas {0} tumba(s) fresca(s)."
+    ],
+    "GraveDugNone": [
+      "Cavas, pero esta noche no encuentras ninguna tumba fresca."
+    ],
+    "SKFrozen": [
+      "Mientras admirabas tu colección de hígados una última vez antes de salir de casa, una ráfaga de viento entró por las ventanas y escarchó los frascos de cristal... congelándote 🐺☃️. Cuando te descongelaste esta mañana, apretaste los dientes con fastidio por el hechizo del Lobo de las Nieves, jurando hacerle sufrir todo lo posible cuando le arranques el hígado."
+    ],
+    "HarlotFrozen": [
+      "Cuando abriste la puerta para salir de casa, una ráfaga de viento sopló hacia ti y te congeló en el sitio 🐺☃️. Quedaste congelada en el umbral, maldiciendo en silencio esta extraña forma de atadura. En fin, menos mal que ya estás descongelada."
+    ],
+    "ChemistFrozen": [
+      "Mientras te removías en sueños, preparándote para despertar e ir a por tus pociones, una fuerte ráfaga de viento entró por las ventanas y te congeló 🐺☃️. Con el rabillo del ojo, viste las botellas de tus pociones escarchadas. Parece que ellas tampoco se libraron del hechizo. Menos mal que ya estás descongelado."
+    ],
+    "CultistFrozen": [
+      "Mientras te ponías la capa y te preparabas para salir de casa, una ráfaga de viento entró por la puerta y te congeló 🐺☃️. Tus compañeros cultistas pasaron poco después, riéndose de tu desgracia antes de marcharse sin ti. Ahora que te has descongelado, sales de casa, encogiéndote de vergüenza."
+    ],
+    "CHFrozen": [
+      "Mientras cogías tu espada, una ráfaga de viento entró por la ventana y te congeló con la espalda aún arqueada 🐺☃️. Gimiste mentalmente, con las extremidades doloridas por haber aguantado esta postura hasta ahora..."
+    ],
+    "SeeingFrozen": [
+      "Mientras estabas sentado a tu mesa, listo para usar tus poderes psíquicos, una ráfaga de viento entró por la ventana y te congeló 🐺☃️. El hechizo también te provocó un serio dolor de cabeza helado, pero el sol saldrá pronto."
+    ],
+    "GAFrozen": [
+      "Mientras deseabas que aparecieran tus alas, una ráfaga de viento entró por las ventanas y te congeló 🐺☃️. Te encogiste por dentro, imaginándote como un adorno en un árbol de Navidad. Por suerte, ya ha terminado, pues el sol ha salido."
+    ],
+    "ThiefFrozen": [
+      "Mientras te escabullías por la aldea, sentiste una fuerte ráfaga de viento. Quedaste congelado en el sitio, literalmente incapaz de moverte 🐺☃️. Por suerte, estaba lo bastante oscuro para que nadie te reconociera. Al amanecer, volviste corriendo a casa antes de que nadie pudiera verte."
+    ],
+    "GraveDiggerFrozen": [
+      "Mientras salías de casa para enterrar a los que habían fallecido, una ráfaga de viento sopló desde las sombras y te congeló. Incapaz de moverte, esperaste a que saliera el sol para descongelarte. Los muertos tendrán que estar inquietos una noche más..."
+    ],
+    "ArsonistNotFrozen": [
+      "Mientras preparabas tu queroseno y tu mechero, una ráfaga de viento entró por la puerta y te congeló 🐺☃️. ¡El Lobo de las Nieves estaba aquí! Pero el hielo puede ser vencido por el fuego: de pie junto a una de tus velas, sientes su calor descongelarte y te permite moverte. ¡Nada puede detener tu fuego! 🔥"
+    ],
+    "DefaultFrozen": [
+      "Mientras dormías anoche, de repente sentiste mucho frío. Al despertar para comprobarlo, ¡te diste cuenta de que no podías moverte en absoluto! Parece que el Lobo de las Nieves 🐺☃️ te ha lanzado un hechizo de congelación. Vuelves a dormir, despreocupado, ya que no te afectó en absoluto... aparte de hacerte sentir frío."
+    ],
+    "SuccessfulFreeze": [
+      "¡Fuiste a la casa de {0} y lo congelaste! Esta noche no podrá usar sus acciones nocturnas (si tiene alguna)."
+    ],
+    "GuardBlockedSnowWolf": [
+      "Te diriges a la casa de {0} para congelarle, pero te recibe una figura alta y oscura, armada hasta los dientes. El Ángel de la Guarda te repele y vuelves derrotado."
+    ],
+    "GuardSaved": [
+      "¡Has salvado la vida de {0}!"
+    ],
+    "GuardSavedYou": [
+      "¡Un ángel de la guarda te estuvo vigilando anoche y repelió a un atacante!"
+    ],
+    "GuardSavedFromFire": [
+      "No esperabas que estallara un fuego cuando visitaste a {0}, pero aun así le salvaste la vida. Que nadie diga que eres un mal protector..."
+    ],
+    "GuardSavedYouFromFire": [
+      "Se declaró un incendio en tu casa, pero por suerte el ángel de la guarda estaba allí y lo apagó enseguida."
+    ],
+    "GuardNoAttack": [
+      "{0} no fue atacado, así que no hiciste gran cosa."
+    ],
+    "GuardEmptyHouse": [
+      "Fuiste a proteger a {0}, pero no estaba en casa."
+    ],
+    "WolfAttackBlockedByGuardian": [
+      "🛡️ La presa de esta noche, {0}, estaba protegida por un Ángel de la Guarda. El ataque falló."
+    ],
+    "SerialKillerBlockedByGuardian": [
+      "🛡️ El objetivo de esta noche, {0}, estaba protegido por un Ángel de la Guarda. Tu golpe no acertó."
+    ],
+    "ArsonistTargetSavedByGuardian": [
+      "🛡️ {0}, a quien rociaste, fue salvado de las llamas por un Ángel de la Guarda esta noche."
+    ],
+    "CleanDoused": [
+      "Esta noche no tuviste que repeler a ningún enemigo en la casa de {0}, así que tuviste tiempo de mirar un poco y notaste que la casa estaba rociada con queroseno. Como no tenías nada mejor que hacer, les limpiaste la casa..."
+    ],
+    "GuardWolf": [
+      "¡Intentaste proteger a un lobo! El lobo te ha devorado."
+    ],
+    "GuardKiller": [
+      "Intentaste proteger al asesino en serie, pero salió y te apuñaló 89 veces. Estás muerto..."
+    ],
+    "GAFell": [
+      "La fortuna no te favoreció esta noche... Solo querías velar por {0}, pero en su lugar caíste en una tumba abierta tras pisar un cepo. ¡Y moriste! ¿Por qué el enterrador tiene que asegurar algunas tumbas?"
+    ],
+    "YouWereDoused": [
+      "¡Alguien te ha rociado con gasolina! Más te vale que el Incendiario no vuelva a atacar..."
+    ],
+    "AskGunner": [
+      "¿A quién te gustaría disparar?"
+    ],
+    "AskSpumpkin": [
+      "¿Cerca de quién te gustaría detonar?"
+    ],
+    "AskDetective": [
+      "¿Las actividades de quién te gustaría investigar?"
+    ],
+    "AskGraveDigger": [
+      "¿A quién te gustaría inspeccionar en el cementerio esta noche?"
+    ],
+    "AskAugur": [
+      "¿Para qué jugador te gustaría leer augurios?"
+    ],
+    "AskWatchman": [
+      "¿A qué jugador te gustaría vigilar esta noche?"
+    ],
+    "WatchmanReportMsg": [
+      "🔭 Esta noche, {0} recibió la visita de {1} personas."
+    ],
+    "AskTracker": [
+      "¿A qué jugador te gustaría rastrear esta noche?"
+    ],
+    "TrackerLeftHome": [
+      "🐾 Esta noche, {0} salió de casa para actuar."
+    ],
+    "TrackerStayedHome": [
+      "🐾 Esta noche, {0} se quedó en casa."
+    ],
+    "AskPriestess": [
+      "¿Qué casa te gustaría bendecir esta noche?"
+    ],
+    "PriestessSaved": [
+      "✨ ¡Tu bendición protegió a {0} de un ataque de lobo! La manada quedará ciega la próxima noche."
+    ],
+    "PriestessSavedYou": [
+      "✨ Una luz divina te envolvió esta noche... ¡sobreviviste a un ataque!"
+    ],
+    "WolfPackBlindedMsg": [
+      "🙈 Una luz sagrada ciega a la manada esta noche. No podéis cazar."
+    ],
+    "AskMimic": [
+      "¿A qué jugador te gustaría imitar esta noche?"
+    ],
+    "MimicDisguiseLocked": [
+      "🎭 Ahora estás imitando a {0}. Cualquier Vidente que te investigue verá el rol de esa persona durante el resto de la partida."
+    ],
+    "AskArchangel": [
+      "¿A qué jugador quieres golpear con tu Bala Sagrada?"
+    ],
+    "ArchangelBulletReceived": [
+      "👼⚡️ Tres aldeanos inocentes han caído uno tras otro. El Cielo te concede una Bala Sagrada, capaz de derribar a un Hombre Lobo a plena luz del día."
+    ],
+    "ArchangelShotHit": [
+      "👼⚡️ Tu Bala Sagrada dio en el blanco: ¡{0} era realmente un Hombre Lobo!"
+    ],
+    "ArchangelShotMiss": [
+      "🕊️ Tu Bala Sagrada no tuvo efecto: {0} no era un Hombre Lobo."
+    ],
+    "AskNecromancer": [
+      "¿A qué jugador fallecido te gustaría resucitar?"
+    ],
+    "PlayerResurrectedMsg": [
+      "🧟 Una fuerza antinatural remueve la tierra del cementerio... ¡{0} se levanta de la tumba y se reúne con los vivos!"
+    ],
+    "NecromancerResurrectSuccess": [
+      "🧟 Tu ritual ha funcionado: {0} está de vuelta entre los vivos y ahora te debe lealtad."
+    ],
+    "NecromancerResurrectFailedMsg": [
+      "🧟 El ritual de esta noche no ha servido de nada: tu objetivo no era válido. Aún te queda un intento para otra noche."
+    ],
+    "AskReflector": [
+      "¿Quieres alzar tu espejo esta noche? (el jugador que elijas da igual)"
+    ],
+    "ReflectorActivatedMsg": [
+      "🪞 Tu espejo está alzado para el resto de la partida. Cualquiera que vaya a por ti sufrirá las consecuencias en tu lugar."
+    ],
+    "ReflectorReflectedMsg": [
+      "🪞 ¡Tu espejo reflejó un ataque! {0} pagó el precio en tu lugar."
+    ],
+    "AskCrow": [
+      "¿A qué jugador te gustaría maldecir para la votación de mañana?"
+    ],
+    "CrowCursedTarget": [
+      "🐦‍⬛ Tu maldición golpeó la puerta de {0}. Sufrirá +2 votos de penalización en el próximo linchamiento."
+    ],
+    "HitmanContractComplete": [
+      "🎯 ¡<b>{0}</b> era el Sicario! Su contrato sobre <b>{1}</b> está cumplido: ¡gana la partida!"
+    ],
+    "AvengerRivalLynchedMsg": [
+      "🗡️ ¡<b>{0}</b> era el Vengador! La aldea acaba de ejecutar a su rival jurado: ¡su venganza por fin se ha completado!"
+    ],
+    "DetectiveSnoop": [
+      "Tu investigación revela que {0} es un {1}."
+    ],
+    "DetectiveCaught": [
+      "Notas que {0} anda husmeando y haciendo preguntas sobre la manada..."
+    ],
+    "MayorButton": [
+      "🎖 Relevarte como Alcalde (duplica tu voto)"
+    ],
+    "PacifistButton": [
+      "☮️ Declarar la paz (saltar el linchamiento de hoy)"
+    ],
+    "BlacksmithButton": [
+      "⚒ Repartir plata (protege a todos de los lobos esta noche)"
+    ],
+    "SandmanButton": [
+      "💤 Dormir a la aldea esta noche"
+    ],
+    "TroublemakerButton": [
+      "🤯 Forzar una segunda votación de linchamiento hoy"
+    ],
+    "MayorRevealedMsg": [
+      "¡{0} se ha revelado como el Alcalde! Su voto ahora cuenta doble."
+    ],
+    "CrownPrinceSucceededMsg": [
+      "👑 ¡El Alcalde ha caído! Como Príncipe Heredero, heredas inmediatamente el título de Alcalde y su voto doble. Ahora puedes revelarte ante la aldea cuando lo consideres oportuno."
+    ],
+    "DuelSquadWonMsg": [
+      "⚔️ <b>¡DUELO TERMINADO!</b>\n\n¡El escuadrón {0} gana el duelo con {1} superviviente(s): {2}!"
+    ],
+    "DuelMutualWipeoutMsg": [
+      "⚔️ <b>¡DUELO TERMINADO!</b>\n\nAmbos escuadrones se aniquilaron mutuamente al mismo tiempo... ¡Es un empate, no gana nadie!"
+    ],
+    "PacifistDeclaredMsg": [
+      "El Pacifista ha declarado la paz: hoy no habrá linchamiento."
+    ],
+    "BlacksmithSpreadMsg": [
+      "El Herrero ha repartido plata por toda la aldea: ¡todos están protegidos de los lobos esta noche!"
+    ],
+    "SandmanUsedMsg": [
+      "El Hombre de Arena ha dormido a la aldea: esta noche no pasará nada."
+    ],
+    "AbilityAlreadyUsed": [
+      "Ya has usado esa habilidad, o no es tuya para usar."
+    ],
+    "AbstainVote": [
+      "No linchar a nadie"
+    ],
+    "PlayerLynched": [
+      "La aldea ha hablado. {0} ha sido linchado."
+    ],
+    "PlayerLynchedWithRole": [
+      "La aldea ha hablado. {0} ha sido linchado. Era un {1}."
+    ],
+    "PrinceSurvivedLynch": [
+      "La aldea intenta linchar a {0}, pero como Príncipe, se libra... una vez."
+    ],
+    "LynchTied": [
+      "La votación terminó en empate. Hoy no se lincha a nadie."
+    ],
+    "PlayerVotedLynch": [
+      "{0} votó linchar a {1}."
+    ],
+    "PlayerVotedLynchAbstain": [
+      "{0} votó abstenerse."
+    ],
+    "PlayerVoteCounts": [
+      "{0}/{1} jugadores han votado."
+    ],
+    "SecretLynchResultEach": [
+      "{0} voto(s) - {1} (votado por: {2})"
+    ],
+    "SecretLynchResultNumber": [
+      "{0} voto(s) - {1}"
+    ],
+    "SecretLynchResultFull": [
+      "🗳️ Resultados secretos del linchamiento:\n{0}"
+    ],
+    "PlayerFoundDead": [
+      "{0} fue encontrado muerto esta mañana."
+    ],
+    "PlayerFoundDeadWithRole": [
+      "{0} fue encontrado muerto esta mañana. Era un {1}."
+    ],
+    "PlayerShotPublic": [
+      "🔫 ¡{0} ({1}) desenfunda y derriba a {2} a plena luz del día!"
+    ],
+    "PlayerShotPublicWithRole": [
+      "🔫 ¡{0} ({1}) desenfunda y derriba a {2} a plena luz del día! Era {3}."
+    ],
+    "HunterShotDeathPublic": [
+      "💥 {0} se desploma, abatido por una bala de caza."
+    ],
+    "HunterShotDeathPublicWithRole": [
+      "💥 {0} se desploma, abatido por una bala de caza. Era {1}."
+    ],
+    "DetectiveEaten": [
+      "Los aldeanos se reúnen por la mañana, pero no ven a {0}. Se acercan a la casa y encuentran a {0} destripado, con una vieja placa metida a la fuerza en la garganta."
+    ],
+    "GuardianEaten": [
+      "Llega la mañana y, para consternación de todos, empalado en lo alto de la cruz de la iglesia está {0}, el Ángel de la Guarda."
+    ],
+    "GunnerEaten": [
+      "Cuando todos salen de sus casas, encuentran trozos de escopeta esparcidos... luego piernas... luego dedos... luego el cuerpo de {0}, flotando en la fuente de la plaza del pueblo, muerto por un ataque de hombre lobo. Habéis perdido a vuestro artillero."
+    ],
+    "SeerEaten": [
+      "Los aldeanos despiertan por la mañana y encuentran los restos destripados de {0} encorvados sobre una tabla de ouija y cartas del tarot. La Vidente está muerta."
+    ],
+    "DrunkEaten": [
+      "Todos despiertan con olor a alcohol y a sangre... ¡el bar está destruido! Tras limpiar la sangre, se encuentran los restos de {0}, despedazado."
+    ],
+    "FoolEaten": [
+      "Cuando el sol se alza sobre la aldea, los aldeanos encuentran el cadáver de {0} sentado sobre una tabla de ouija, pero con una baraja de... ¿cartas de póker? ¡QUÉ TONTO!"
+    ],
+    "HarlotEaten": [
+      "La cortesana eligió la noche equivocada para quedarse en casa. ¡{0} ha sido devorada por los lobos!"
+    ],
+    "MasonEaten": [
+      "Cuando todos se levantan, encuentran el cuerpo de {0} metido en un montón de piedras, con sangre salpicada por todas partes. ¡Ha muerto uno de vuestros masones!"
+    ],
+    "ApprenticeSeerEaten": [
+      "Los aldeanos despiertan y encuentran a {0} encorvado sobre una tabla de ouija de segunda mano mientras practicaba la adivinación, sin cabeza. El Aprendiz de Vidente está muerto."
+    ],
+    "SorcererEaten": [
+      "Los aullidos lastimeros se oyen por toda la aldea. Se ha cometido un error. Los lobos han matado a uno de los suyos. El Brujo {0} ha muerto.",
+      "Anoche se oyeron gritos de \"¡Soy tu aliado!\". Lo único que encontraron los aldeanos a la mañana siguiente fue un cuerpo exhumado y una bola mística destrozada, pertenecientes a {0}, el brujo. El hambre está por encima de la camaradería..."
+    ],
+    "WildChildEaten": [
+      "Anoche se oyó a los lobos comerse a un tierno Niño Salvaje, {0}, ¡dejando atrás solo un esqueleto reducido! La aldea se preguntaba si los lobos sentían alguna culpa al despedazar al niño indefenso."
+    ],
+    "DefaultEaten": [
+      "Cuando todos se levantan por la mañana, huelen un hedor terrible. Siguen el olor y encuentran a {0} despedazado en el corral de los cerdos, sin cabeza.\\n{1}"
+    ],
+    "BlacksmithKilled": [
+      "Parece que {0}, el herrero del pueblo, debió de tener muy mala suerte. Anoche se encontraron cinco cuchillos, recién sacados de la armería de {0}, clavados en sus manos, pies y cabeza, y fijados a la mesa del artesano. Quizá el asesino en serie esperaba ampliar su colección de armas junto con la de órganos..."
+    ],
+    "CultistKilled": [
+      "{0} fue encontrado apuñalado con un candelabro junto a su altar. ¡El asesino en serie ha vuelto a atacar, sin importar raza, idioma o religión! {0} era un Cultista."
+    ],
+    "CupidKilled": [
+      "A la mañana siguiente, los aldeanos encontraron con el corazón roto a {0}, alias Cupido, partido de la cabeza a los pies. Curiosamente, faltaba el corazón..."
+    ],
+    "DrunkKilled": [
+      "Los aldeanos esperaban encontrarse con {0} para felicitarle por su bebida, pero lo único que hallaron en casa de {0} fue un cuchillo roto y un hígado. Tantos años de beber dieron como resultado un hígado tan duro que ni el Asesino en Serie lo querría..."
+    ],
+    "GuardianAngelKilled": [
+      "{0} normalmente habría logrado repeler al asesino en serie, pero fue una ironía que el halo del Ángel de la Guarda se extinguiera. {0} ha muerto."
+    ],
+    "GunnerKilled": [
+      "¡Parece que {0} fue sorprendido durmiendo una siesta anoche! Se oyó un disparo, pero lo único que había eran los restos de un artillero, con un agujero de bala en la cabeza y una puñalada en el torso. Está claro que el asesino en serie ha ganado."
+    ],
+    "MayorKilled": [
+      "¡Magnicidio! ¡{0}, el alcalde, fue encontrado clavado con un cuchillo sobre la mesa mientras trabajaba de noche en el ayuntamiento! Está claro que es el asesino en serie, vengándose de que el manicomio le robara años de vida."
+    ],
+    "PrinceKilled": [
+      "Las campanas suenan por toda la aldea antes del amanecer, mientras guardias armados inundan las calles investigando la desaparición del Príncipe {0}. No se descubrieron pistas, pero se sospecha que hay un Asesino en Serie suelto...",
+      "Los guardias de {0} fueron sorprendidos durmiendo anoche. Los restos reales de {0} fueron hallados, colgados en varias partes del palacio, presa de la cuchilla. Ninguna cantidad de sangre principesca disuadiría a la hoja de un asesino en serie."
+    ],
+    "SeerKilled": [
+      "Los aldeanos despiertan con el cadáver putrefacto de {0}, partido de la cabeza a los pies, con puñaladas por todas partes. Curiosamente, el cerebro fue extirpado con cuidado, como si fuera una premonición de que la aldea ha perdido a sus mejores cerebros. {0} era la Vidente."
+    ],
+    "DefaultKilled": [
+      "Parecía una noche bastante tranquila para {0}, pero se equivocó. Los aldeanos se reúnen por la mañana y encuentran a {0} partido de la cabeza a los pies, pero, curiosamente, faltaba el hígado... ¡El asesino en serie ha vuelto a atacar! {1}"
+    ],
+    "HarlotFellPublic": [
+      "Cuando la cortesana {0} volvía a casa tras una noche de diversión, intentó tomar un atajo por el cementerio local. Debía de estar aún algo mareada, pues no vio la tumba abierta hasta que sintió que no había suelo bajo su siguiente paso. ¡Quizá debería haber aceptado ese trabajo diurno que le ofrecieron ayer!"
+    ],
+    "CultistFellPublic": [
+      "El culto intentó quemar la iglesia, pero cuando {0} guiaba al grupo por el cementerio, ¡un cepo se cerró sobre su tobillo! Gritó al caer en una tumba abierta y los demás cultistas huyeron aterrorizados..."
+    ],
+    "ThiefFellPublic": [
+      "Quizá {0}, el ladrón, intentaba robar a los muertos. Quizá fue el karma. Lo único que sabemos es que rondaba el cementerio cuando la trampa le partió la pierna. Mientras caía en la tumba, se preguntaba si debería haber traído a un cómplice para este trabajo. ¡{0} no volverá a robar, seguro!"
+    ],
+    "WolfFellPublic": [
+      "Cuando la manada sale de caza, {0} huele una posible presa y no se da cuenta del cepo que se cierra sobre su tobillo. ¡Sorprendido, {0} cae en la tumba, donde la punta de una lanza de plata le alcanza la cabeza! Menos mal que el enterrador mantiene seguras sus tumbas. {1}"
+    ],
+    "DefaultFellPublic": [
+      "Una de las tumbas del cementerio contenía demasiada gente esta noche... Al parecer, {0} intentó visitar al enterrador, ¡cayó en una tumba y murió! {1}"
+    ],
+    "WolfVisitBurn": [
+      "Los lobos intentaron comerse a alguien esta noche otra vez, ¡pero el incendiario fue más rápido! {0} no pudo escapar de la casa en llamas a tiempo... {1}"
+    ],
+    "DefaultVisitBurn": [
+      "{0} debería haberse quedado en casa esta noche... ¡Visitó una casa en llamas y murió entre las llamas! {1}"
+    ],
+    "ChemistSuccessPublic": [
+      "El químico ha visitado a {0} esta noche y eligió la poción venenosa. Mientras el químico loco sigue vivo, {0} murió. {1}"
+    ],
+    "ChemistFailPublic": [
+      "¡El químico {0} fue encontrado muerto! Al parecer, {0} tuvo mala suerte y bebió la poción venenosa durante su visita nocturna. Reza para no comprar nunca tus medicinas a él..."
+    ],
+    "ViperPoisonPublic": [
+      "{0} se desploma al atardecer, abatido por un veneno de acción lenta inyectado anoche... {1}"
+    ],
+    "ChemistKillWiseElder": [
+      "Aunque todavía no sabes realmente quién es el químico, estás seguro de que nunca volverá a cometer un error tan lamentable. ¡El químico renunció a su trabajo y se convirtió en un aldeano normal!"
+    ],
+    "ChemistVisitYouSuccess": [
+      "Te visitó el químico 👨‍🔬, te obligó a elegir una poción y elegiste la venenosa. Qué triste forma de dejar este mundo..."
+    ],
+    "ChemistSuccess": [
+      "¡Visitaste a {0} y le dejaste elegir una poción! Eligió la venenosa y volviste a casa, satisfecho de tus dotes para el juego. ¡Esto no es un juego de azar!"
+    ],
+    "ChemistVisitYouFail": [
+      "Te visitó el químico 👨‍🔬 {0}, te obligó a elegir una poción. Tras un momento de duda, ¡elegiste la buena! ¡Qué suerte!"
+    ],
+    "ChemistFail": [
+      "¡Visitaste a {0} y le dejaste elegir una poción! ¡Sin embargo, eligió la buena! Como resultado, bebiste la venenosa y moriste. Quizá deberías haber hecho mejor tu trabajo..."
+    ],
+    "ChemistTargetDead": [
+      "Fuiste a casa de {0} a tomar algo con él, pero al llegar, ¡ya está muerto!"
+    ],
+    "ChemistTargetEmpty": [
+      "¡{0} no estaba en casa! Arrastras tu maletín de vuelta a casa, maldiciendo tu mala suerte."
+    ],
+    "ChemistVisitYouSK": [
+      "¡Te visitó el Químico 👨‍🔬 {0}! Sacó un cuchillo para obligarte a beber, pero en lugar de beber, tú sacaste tu propio cuchillo. Al parecer, tu cuchillo era más fuerte 🤷‍♂️"
+    ],
+    "ChemistSK": [
+      "Vas a ver a {0} para dejarle elegir una poción; sin embargo, era el asesino en serie y ¡te apuñaló! 🔪"
+    ],
+    "ChemistFellDigger": [
+      "\"No me vendría mal una copa de vino\", piensas. Un extraño presentimiento te hace mirar en una tumba a tu lado y, como si el destino hubiera oído tu deseo, ¡hay una botella de vino dentro! Lástima que también esté el cadáver de {0}... De repente, se te quitaron las ganas."
+    ],
+    "ChemistFell": [
+      "Mientras vas de camino a casa de {0}, intentas recordar cuál de tus bebidas era la venenosa y tropiezas, cayendo en una tumba abierta donde una lanza de plata te atraviesa el corazón. Antes de poder emitir sonido alguno, estás muerto."
+    ],
+    "NoOneDiedLastNight": [
+      "¡Milagrosamente, nadie murió anoche!"
+    ],
+    "SerialKillerKilledWolf": [
+      "Los lobos intentaron darse un buen tentempié nocturno, pero en su lugar se encontraron con un asesino demente. ¡{0} murió en el enfrentamiento!"
+    ],
+    "SerialKillerKilledCH": [
+      "Los aldeanos despiertan por la mañana y solo encuentran las partes cercenadas del cuerpo de {0}, el Cazador de Cultistas, en un carro colocado a la vista de todos frente al ayuntamiento. Lección aprendida: ¡no visites al asesino en serie!"
+    ],
+    "ThiefStoleKiller": [
+      "¡El Ladrón, {0}, intentó robarle el rol al asesino en serie! No salió muy bien: {0} recibió varias puñaladas y ahora falta su hígado..."
+    ],
+    "ChemistSKPublic": [
+      "El químico 👨‍🔬 {0} intentó forzar al asesino en serie a un juego esta noche. Parece que el asesino no tenía ganas de jugar... ¡{0} fue encontrado apuñalado, con dos pociones aún en su bolsa!"
+    ],
+    "SnowFrozeKiller": [
+      "El lobo de las nieves {0} intentó congelar a alguien anoche, ¡pero por accidente visitó al asesino en serie! El asesino notó al visitante indeseado y ¡apuñaló a {0}!"
+    ],
+    "ArsonistVisitKiller": [
+      "El incendiario {0} intentó rociar la casa del asesino en serie... No sobrevivió a ello."
+    ],
+    "CultConvertKillerPublic": [
+      "El culto creía que tendría un nuevo miembro en sus filas, ¡pero se equivocó! ¡{0}, un cultista, fue descuartizado y colocado en la plaza del pueblo por la mañana! Curiosamente, su libro \"sagrado\" fue encontrado apuñalado con un cuchillo, como una declaración de qué religión era la triunfante."
+    ],
+    "HarlotFuckKillerPublic": [
+      "La aldea ve el cuerpo de {0}, yaciendo sin vida en la plaza pública con incontables puñaladas. {0} ha muerto."
+    ],
+    "GAGuardedKiller": [
+      "Se suponía que sería una noche en la que {0} salvaría a la aldea de los asesinos, ¡pero el halo y las alas de {0} fueron apagados y cortados por el asesino en serie! Quedó una nota: \"Podría protegerme mejor que tú\"."
+    ],
+    "HarlotFuckedWolfPublic": [
+      "¡{0} se coló en la casa equivocada anoche! Los restos de la cortesana {0} son encontrados clavados en las puertas de la iglesia con una barra de hierro... qué triste :("
+    ],
+    "CultConvertWolfPublic": [
+      "Aunque parecía que los lobos habían decidido portarse bien por una vez, castigar a {0}, un cultista que decidió buscar problemas con los lobos, resultó demasiado irresistible. ¡La cabeza de {0} fue convertida en una fina cena, entregada en las puertas de los lobos!"
+    ],
+    "GAGuardedWolf": [
+      "{0} intentó proteger a un lobo anoche. El pueblo despertó y solo encontró las alas de {0} colgadas en la cruz de la iglesia. Está claro que los lobos tuvieron una comida extra enviada por Dios, gratis, a sus casas."
+    ],
+    "HunterKilledCultist": [
+      "Un hedor notable sale de la casa de {0}... la aldea la inspecciona y encuentra un cuerpo tirado frente a un altar oscuro. ¡Un cultista ha sido asesinado por el cazador de cultistas!"
+    ],
+    "HunterKilledVisiter": [
+      "En medio de la plaza del pueblo, todos encuentran el cuerpo de {0}, con múltiples disparos. Parece que intentaron acercarse sigilosamente al Cazador. Bueno, {1}."
+    ],
+    "KillerSpottedDiggerPublic": [
+      "{0} no aparece hoy... ¿Se habrá quedado dormido? Vas a buscarlo y lo encuentras muerto en el cementerio, aún con su pala en la mano. Parece que murió por varias puñaladas..."
+    ],
+    "WolvesSpottedDiggerPublic": [
+      "{0} no aparece a la reunión del pueblo. ¿Se ha vuelto a dormir? Cuando vas a buscarlo, lo encuentras muerto en el cementerio, con la pala aún en las manos. Parece que los lobos lo sorprendieron en la noche..."
+    ],
+    "HarlotFuckedVictimPublic": [
+      "{0} se cuela en la casa de {1}, listo para divertirse un poco y aliviar el estrés. En cambio, ¡{0} encuentra a un hombre lobo comiendo a {1}! El hombre lobo se gira rápidamente hacia {0} y salta... {0} ha muerto."
+    ],
+    "HarlotFuckedKilledPublic": [
+      "{0} se cuela en la casa de {1}, listo para una noche de pasión, ¡y solo encuentra a un misterioso desconocido extrayendo quirúrgicamente las entrañas de {1}! ¡El asesino en serie decide satisfacer a {0} antes de añadir un corazón de cortesana a su colección!"
+    ],
+    "AskHunterShot": [
+      "Como acto final, ¿a quién te gustaría llevarte contigo?"
+    ],
+    "HunterShotFired": [
+      "¡Con su último aliento, {0} dispara a {1}!"
+    ],
+    "PlayerBittenPM": [
+      "🐺 <b>¡AVISO! ¡TE HAN MORDIDO!</b>\n<i>El Lobo Alfa te mordió esta noche... ¡La próxima noche, la maldición hará efecto y te convertirás en Hombre Lobo!</i>"
+    ],
+    "CursedTurnedWolfMsg": [
+      "🐺 <b>¡MALDICIÓN DESPERTADA!</b>\n<i>Los lobos te atacaron, pero tu maldición se activó... ¡Ahora eres un 🐺 Hombre Lobo!</i>"
+    ],
+    "BittenTurnedWolfMsg": [
+      "🐺 <b>¡TRANSFORMADO EN HOMBRE LOBO!</b>\n<i>La maldición ha tomado el control. ¡Ahora eres un 🐺 Hombre Lobo! ¡Únete a la manada y devora la aldea!</i>"
+    ],
+    "WildChildTurnedWolfMsg": [
+      "🐺 <b>¡TU MODELO A SEGUIR HA MUERTO!</b>\n<i>Cegado por la ira tras la muerte de tu modelo, ¡te has convertido en un 🐺 Hombre Lobo!</i>"
+    ],
+    "DoppelgangerTransformedMsg": [
+      "🎭 <b>¡ROL HEREDADO!</b>\n<i>Tu modelo a seguir ha muerto. ¡Has heredado su rol y sus habilidades!</i>"
+    ],
+    "ApprenticeSeerPromotedMsg": [
+      "🔮 <b>¡ASCENDIDO A VIDENTE!</b>\n<i>La Vidente ha muerto... ¡Heredas su bola de cristal y sus visiones!</i>"
+    ],
+    "LoversCreatedMsg": [
+      "¡Cupido ha disparado! Dos jugadores ahora están perdidamente enamorados."
+    ],
+    "SnowWolfBecameWolfMsg": [
+      "El último lobo auténtico ha caído: ¡el Lobo de las Nieves ha ocupado su lugar!"
+    ],
+    "TraitorBecameWolfMsg": [
+      "El último lobo auténtico ha caído: ¡el Traidor ha ocupado su lugar!"
+    ],
+    "GunnerPreventsWolfWinMsg": [
+      "¡Al Artillero todavía le quedan balas: los lobos no pueden reclamar la victoria aún!"
+    ],
+    "CultistAutoConvertedMsg": [
+      "¡{0} ha sido convertido al culto!"
+    ],
+    "RoleStolenMsg": [
+      "¡El Ladrón ha atacado, robando una nueva identidad!"
+    ],
+    "SKHunterWin": [
+      "El Cazador de Cultistas derribó al Asesino en Serie y vive para contarlo. ¡Gana el Cazador de AS!"
+    ],
+    "GenericTeamWin": [
+      "¡Gana {0}!"
+    ],
+    "LoverDiedOfGrief": [
+      "{0} no pudo soportar vivir sin {1}, y murió de un corazón roto."
+    ],
+    "HunterCounterAttackMsg": [
+      "Los lobos atacaron a {0}, pero como Cazador, ¡devolvió el disparo y mató a {1}!"
+    ],
+    "CultistHunterKilledCultistMsg": [
+      "¡{0} ha cazado y eliminado al cultista {1}!"
+    ],
+    "HunterStandoffWin": [
+      "En un enfrentamiento final, ¡el Cazador derriba al último lobo!"
+    ],
+    "HunterStandoffLose": [
+      "En un enfrentamiento final, ¡el lobo supera al Cazador!"
+    ],
+    "WiseElderSurvived": [
+      "Fuiste atacado, pero tu sabiduría te salvó... solo esta vez."
+    ],
+    "ConvertedToCult": [
+      "🔮 <b>¡CONVERTIDO AL CULTO!</b>\n<i>¡Has sido convertido al Culto! Ahora eres un Cultista. ¡Colaborad para convertir la aldea!</i>"
+    ],
+    "RoleStolenPM": [
+      "¡Has robado la identidad de {0}! Ahora eres un {1}."
+    ],
+    "ThiefStealChosen": [
+      "Tu objetivo de robo ahora es {0}."
+    ],
+    "GunnerLostPowerMsg": [
+      "Tu bala no tuvo efecto sobre el Anciano Sabio: ¡el impacto te ha arrebatado tu poder!"
+    ],
+    "HunterLostPowerMsg": [
+      "Tu disparo final alcanzó al Anciano Sabio: la culpa te arrebata el título. Tu último acto fue el de un humilde aldeano, no el de un cazador."
+    ],
+    "WolvesGotDrunkMsg": [
+      "Os emborrachasteis tanto celebrando el festín de esta noche que no podréis volver a actuar en un tiempo."
+    ],
+    "YouAreInLove": [
+      "Cupido ha disparado: ahora estás perdidamente enamorado de {0}. Si uno de los dos muere, también lo hará la voluntad de vivir del otro."
+    ],
+    "HelpMessage": [
+      "/startgame o /startchaos para iniciar una partida, /join para jugar, /forcestart para saltarte la espera, /players para ver quién está, /flee para salir.\nDurante una partida, revisa tus mensajes privados para tu rol y tus acciones de día/noche.\n/setlang para cambiar tu idioma, /stats para ver tu historial."
+    ],
+    "SetLangPrompt": [
+      "Elige tu idioma:"
+    ],
+    "SetLangSentPrivate": [
+      "Te he enviado un mensaje privado para que elijas tu idioma."
+    ],
+    "SetLangConfirmed": [
+      "Tu idioma ahora está configurado en {0}."
+    ],
+    "StatsPlayerLine": [
+      "{0}: {1} partidas jugadas, {2} ganadas."
+    ],
+    "StatsGroupLine": [
+      "Este grupo ha albergado {0} partidas terminadas."
+    ],
+    "StatsHeader": [
+      "📊 Estadísticas"
+    ],
+    "AchievementUnlocked": [
+      "🏆 Logro desbloqueado: {0}\n{1}"
+    ],
+    "AchvHeader": [
+      "🏆 Tus logros ({0}/{1}):"
+    ],
+    "AchvEmpty": [
+      "Todavía no has desbloqueado ningún logro: ¡ve a jugar una partida!"
+    ],
+    "AchvLine": [
+      "{0} - {1}"
+    ],
+    "AchAdded": [
+      "Logro \"{0}\" desbloqueado para {1}."
+    ],
+    "AchAlreadyHad": [
+      "{1} ya tiene el logro \"{0}\"."
+    ],
+    "AchRemoved": [
+      "Logro \"{0}\" eliminado de {1}."
+    ],
+    "AchDidntHave": [
+      "{1} no tiene el logro \"{0}\"."
+    ],
+    "AchUnknownCode": [
+      "Código de logro desconocido: {0}"
+    ],
+    "AchUsage": [
+      "Uso: responde a (o menciona con @/id) el objetivo, y luego el código del logro, p. ej. /addach WelcomeToHell"
+    ],
+    "CfgMenuRoles": [
+      "🎭 Roles"
+    ],
+    "CfgMenuOptions": [
+      "⚙️ Opciones"
+    ],
+    "CfgMenuMode": [
+      "🎲 Modo"
+    ],
+    "CfgMenuTimers": [
+      "⏱ Tiempos"
+    ],
+    "CfgMenuMaxPlayers": [
+      "👥 Máx. jugadores"
+    ],
+    "CfgMenuLanguage": [
+      "🌐 Idioma"
+    ],
+    "CfgMainTitle": [
+      "Ajustes de {0}. Elige una categoría:"
+    ],
+    "CfgBack": [
+      "« Atrás"
+    ],
+    "CfgRolesTitle": [
+      "Toca un rol para activarlo/desactivarlo en este grupo:"
+    ],
+    "CfgOptionsTitle": [
+      "Toca una opción para alternarla:"
+    ],
+    "CfgModeTitle": [
+      "¿Qué modo deberían usar por defecto las partidas de este grupo?"
+    ],
+    "CfgModePlayerChoice": [
+      "Dejar que decidan /startgame o /startchaos"
+    ],
+    "CfgModeNormal": [
+      "Siempre Normal"
+    ],
+    "CfgModeChaos": [
+      "Siempre Caos"
+    ],
+    "CfgMenuShowRolesEnd": [
+      "🏁 Resumen final"
+    ],
+    "CfgShowRolesEndTitle": [
+      "¿Cuánto debería revelar el resumen de fin de partida?"
+    ],
+    "CfgShowRolesEndNone": [
+      "No mostrar ninguno"
+    ],
+    "CfgShowRolesEndLiving": [
+      "Mostrar solo jugadores vivos"
+    ],
+    "CfgShowRolesEndAll": [
+      "Mostrar todos los jugadores"
+    ],
+    "CfgTimersTitle": [
+      "Toca una duración (en segundos) para cada fase:"
+    ],
+    "CfgTimerDay": [
+      "Día"
+    ],
+    "CfgTimerNight": [
+      "Noche"
+    ],
+    "CfgTimerLynch": [
+      "Votación de linchamiento"
+    ],
+    "CfgTimerExtend": [
+      "Máx. /extend"
+    ],
+    "CfgMaxPlayersTitle": [
+      "Límite actual: {0} jugadores. Elige uno nuevo:"
+    ],
+    "CfgLanguageTitle": [
+      "¿En qué idioma deberían narrarse las partidas de este grupo?"
+    ],
+    "CfgLangPackTitle": [
+      "Elige un paquete de idioma (o Predeterminado para el texto estándar):"
+    ],
+    "CfgLangPackDefault": [
+      "Predeterminado"
+    ],
+    "CfgThiefFull": [
+      "El Ladrón puede robar cada noche (no solo la noche 1)"
+    ],
+    "CfgBurningOverkill": [
+      "El fuego del Incendiario puede matar a través de la protección del Ángel de la Guarda"
+    ],
+    "CfgShowRolesOnDeath": [
+      "Revelar el rol de un jugador cuando muere"
+    ],
+    "CfgShowIds": [
+      "Mostrar los ID de Telegram en las listas de jugadores"
+    ],
+    "CfgShufflePlayerList": [
+      "Barajar el orden de la lista de jugadores"
+    ],
+    "CfgRandomMode": [
+      "Aleatorizar Normal/Caos en cada partida"
+    ],
+    "CfgSecretLynch": [
+      "Voto secreto (ocultar quién vota a quién)"
+    ],
+    "CfgSecretLynchShowVotes": [
+      "Voto secreto: mostrar igualmente el recuento de votos"
+    ],
+    "CfgSecretLynchShowVoters": [
+      "Voto secreto: mostrar igualmente los nombres de los votantes"
+    ],
+    "CfgPmLynchVote": [
+      "Voto de linchamiento por MP (enviar el menú de voto a cada jugador por privado)"
+    ],
+    "PmLynchVoteStarted": [
+      "🗳️ ¡La votación de linchamiento ha comenzado! Revisa tus mensajes privados para votar."
+    ],
+    "CfgAllowExtend": [
+      "Permitir /extend"
+    ],
+    "CfgAllowFlee": [
+      "Permitir /flee a mitad de partida"
+    ],
+    "CfgAllowNsfw": [
+      "Permitir contenido NSFW"
+    ],
+    "CfgAllowTanner": [
+      "Permitir el rol de Curtidor"
+    ],
+    "CfgAllowFool": [
+      "Permitir el rol de Tonto"
+    ],
+    "CfgAllowCult": [
+      "Permitir el Culto"
+    ],
+    "CfgAllowThief": [
+      "Permitir el rol de Ladrón"
+    ],
+    "CfgAllowArsonist": [
+      "Permitir el rol de Incendiario"
+    ],
+    "CfgMuteDead": [
+      "Silenciar a los jugadores muertos durante la partida"
+    ],
+    "CfgTagAllOnStart": [
+      "Etiquetar a todos los miembros de la comunidad al iniciar una partida"
+    ],
+    "MustStartPmFirstGroup": [
+      "⚠️ {0}, ¡debes iniciar un chat con el bot por privado primero para recibir tu rol y jugar!"
+    ],
+    "StartPmButton": [
+      "👉 Iniciar el bot por privado"
+    ],
+    "Role_Villager": [
+      "Aldeano"
+    ],
+    "Role_Drunk": [
+      "Borrachuzo"
+    ],
+    "Role_Harlot": [
+      "Cortesana"
+    ],
+    "Role_Seer": [
+      "Vidente"
+    ],
+    "Role_Traitor": [
+      "Traidor"
+    ],
+    "Role_GuardianAngel": [
+      "Ángel de la Guarda"
+    ],
+    "Role_Detective": [
+      "Detective"
+    ],
+    "Role_Wolf": [
+      "Lobo"
+    ],
+    "Role_Cursed": [
+      "Maldito"
+    ],
+    "Role_Gunner": [
+      "Artillero"
+    ],
+    "Role_Tanner": [
+      "Curtidor"
+    ],
+    "Role_Fool": [
+      "Tonto"
+    ],
+    "Role_WildChild": [
+      "Niño Salvaje"
+    ],
+    "Role_Beholder": [
+      "Vigía"
+    ],
+    "Role_ApprenticeSeer": [
+      "Aprendiz de Vidente"
+    ],
+    "Role_Cultist": [
+      "Cultista"
+    ],
+    "Role_CultistHunter": [
+      "Cazador de Cultistas"
+    ],
+    "Role_Mason": [
+      "Masón"
+    ],
+    "Role_Doppelganger": [
+      "Doppelgänger"
+    ],
+    "Role_Cupid": [
+      "Cupido"
+    ],
+    "Role_Hunter": [
+      "Cazador"
+    ],
+    "Role_SerialKiller": [
+      "Asesino en Serie"
+    ],
+    "Role_Sorcerer": [
+      "Brujo"
+    ],
+    "Role_AlphaWolf": [
+      "Lobo Alfa"
+    ],
+    "Role_WolfCub": [
+      "Cachorro de Lobo"
+    ],
+    "Role_Blacksmith": [
+      "Herrero"
+    ],
+    "Role_ClumsyGuy": [
+      "Torpe"
+    ],
+    "Role_Mayor": [
+      "Alcalde"
+    ],
+    "Role_Prince": [
+      "Príncipe"
+    ],
+    "Role_Lycan": [
+      "Licántropo"
+    ],
+    "Role_Pacifist": [
+      "Pacifista"
+    ],
+    "Role_WiseElder": [
+      "Anciano Sabio"
+    ],
+    "Role_Oracle": [
+      "Oráculo"
+    ],
+    "Role_Sandman": [
+      "Hombre de Arena"
+    ],
+    "Role_WolfMan": [
+      "Hombre Lobo"
+    ],
+    "Role_Thief": [
+      "Ladrón"
+    ],
+    "Role_Troublemaker": [
+      "Alborotador"
+    ],
+    "Role_Chemist": [
+      "Químico"
+    ],
+    "Role_SnowWolf": [
+      "Lobo de las Nieves"
+    ],
+    "Role_GraveDigger": [
+      "Enterrador"
+    ],
+    "Role_Augur": [
+      "Augur"
+    ],
+    "Role_Arsonist": [
+      "Incendiario"
+    ],
+    "Role_Spumpkin": [
+      "Spumpkin"
+    ],
+    "Role_Watchman": [
+      "Vigilante"
+    ],
+    "Role_Judge": [
+      "Juez"
+    ],
+    "Role_Archivist": [
+      "Archivero"
+    ],
+    "Role_Tracker": [
+      "Rastreador"
+    ],
+    "Role_Priestess": [
+      "Sacerdotisa"
+    ],
+    "Role_Mimic": [
+      "Imitador"
+    ],
+    "Role_CrownPrince": [
+      "Príncipe Heredero"
+    ],
+    "Role_Archangel": [
+      "Arcángel"
+    ],
+    "Role_TrapperWolf": [
+      "Lobo Trampero"
+    ],
+    "Role_ChameleonWolf": [
+      "Lobo Camaleón"
+    ],
+    "Role_ViperWolf": [
+      "Lobo Víbora"
+    ],
+    "Role_HowlerWolf": [
+      "Lobo Aullador"
+    ],
+    "Role_HypnotistWolf": [
+      "Lobo Hipnotizador"
+    ],
+    "Role_BerserkerWolf": [
+      "Lobo Berserker"
+    ],
+    "Role_Necromancer": [
+      "Nigromante"
+    ],
+    "Role_Jester": [
+      "Bufón"
+    ],
+    "Role_Hitman": [
+      "Sicario"
+    ],
+    "Role_Reflector": [
+      "Reflector"
+    ],
+    "Role_Avenger": [
+      "Vengador"
+    ],
+    "Role_Crow": [
+      "Cuervo"
+    ],
+    "CheckYourPM": [
+      "¡Revisa tus mensajes privados!"
+    ],
+    "CantPMYou": [
+      "No he podido enviarte un mensaje privado: inicia un chat conmigo primero y vuelve a intentarlo."
+    ],
+    "Cancel": [
+      "Cancelar"
+    ],
+    "GroupNotFound": [
+      "No he podido encontrar ese grupo."
+    ],
+    "AlreadyOnWaitList": [
+      "Ya estás esperando la próxima partida en {0}."
+    ],
+    "AddedToWaitList": [
+      "Se te avisará cuando empiece una nueva partida en {0}."
+    ],
+    "DeletedFromWaitList": [
+      "Has sido eliminado de la lista de espera de {0}."
+    ],
+    "NotifyNewGame": [
+      "Ha empezado una nueva partida en {0}: ¡ven a jugar!"
+    ],
+    "PlayerSmitten": [
+      "¡{0} ha sido fulminado!"
+    ],
+    "ModTargetMissing": [
+      "Responde a su mensaje, menciónalo con @ o pasa su id numérico."
+    ],
+    "BanConfirmed": [
+      "{0} ha sido baneado permanentemente."
+    ],
+    "UnbanConfirmed": [
+      "{0} ha sido desbaneado."
+    ],
+    "UnbanNotFound": [
+      "{0} no estaba baneado."
+    ],
+    "GetBansHeader": [
+      "Baneos globales activos:"
+    ],
+    "GetBansEmpty": [
+      "No hay baneos globales activos."
+    ],
+    "GetBansLine": [
+      "{0} ({1}) - {2}"
+    ],
+    "GetBansSpamHeader": [
+      "Baneos temporales por spam:"
+    ],
+    "GetBansExpiringHeader": [
+      "Baneos que expiran:"
+    ],
+    "GetBansPermanentHeader": [
+      "Baneos permanentes:"
+    ],
+    "GetBanNotBanned": [
+      "{0} no está baneado."
+    ],
+    "GetBanStatus": [
+      "{0} está baneado.\\nMotivo: {1}\\nBaneado por: {2}\\nExpira: {3}\\nVisto por primera vez: {4}"
+    ],
+    "GetBanPermanent": [
+      "nunca (baneo permanente)"
+    ],
+    "GetBanUnknown": [
+      "desconocido"
+    ],
+    "UserProfile": [
+      "Nombre: {0}\\nUsuario: {1}\\nIdioma: {2}\\nPartidas jugadas: {3}\\nNivel de donación: {4}\\nVisto por primera vez: {5}\\nRecuento de baneos temporales por spam: {6}\\nEstado de baneo: {7}"
+    ],
+    "UserProfileNotBanned": [
+      "No baneado"
+    ],
+    "UserProfileBanned": [
+      "Baneado: motivo: {0}, expira: {1}"
+    ],
+    "UserNotFound": [
+      "No se ha encontrado ningún registro de ese jugador."
+    ],
+    "IdleCount": [
+      "{0}: {1} muertes por inactividad (todos los grupos, últimas 24 h)"
+    ],
+    "GroupIdleCount": [
+      "{0} en este grupo"
+    ],
+    "SetLinkAlreadySet": [
+      "El enlace de tu grupo ya está configurado como https://t.me/{0}"
+    ],
+    "SetLinkMissingArg": [
+      "Debes proporcionar el enlace de invitación del grupo: /setlink <enlace>"
+    ],
+    "SetLinkInvalid": [
+      "Este no es un enlace de invitación de Telegram válido."
+    ],
+    "SetLinkConfirmed": [
+      "Enlace del grupo configurado: {0}"
+    ],
+    "RemLinkConfirmed": [
+      "El enlace de tu grupo ha sido eliminado."
+    ],
+    "AboutVillager": [
+      "Tu rol es simple: intenta sobrevivir. Cada día tendrás la oportunidad de linchar al hombre lobo."
+    ],
+    "AboutWolf": [
+      "¡Tú te lo pasas bien! Cada día intentarás engañar a tus compañeros de juego. Sin embargo, cada noche podrás elegir a un jugador para matarlo.\\nNota: si atacas al Maldito, ¡se convertirá en un lobo como tú! ¡Hurra, amigos!\\nSi atacas al Borrachuzo, tú mismo te emborracharás y no podrás hacer el siguiente ataque mientras se te pasa la resaca. (Normalmente esto significa que no podrás atacar la noche siguiente, pero si mataron al Cachorro de Lobo y el Borrachuzo fue tu primera elección, no podrás matar al segundo jugador, y aún podrás atacar la noche siguiente.)"
+    ],
+    "AboutDrunk": [
+      "¡Maldito borracho! Como borrachuzo, sigues siendo solo un aldeano. ¡PERO! Si los lobos te matan, quedarán incapacitados para la siguiente muerte, pues estarán borrachos con tu increíblemente alto nivel de alcohol en sangre."
+    ],
+    "AboutSeer": [
+      "Eres la Vidente. Cada noche puedes elegir a un jugador y ver su rol revelado. Admite tu rol con sabiduría: si revelas que eres la vidente, ¡los lobos intentarán matarte!"
+    ],
+    "AboutCursed": [
+      "Como maldito, eres un aldeano normal... hasta que los lobos te matan. Una vez lo hagan, ¡te convertirás también en un lobo! Libre para cazar de noche..."
+    ],
+    "AboutHarlot": [
+      "Como cortesana, cada noche tendrás la oportunidad de 'visitar' a otro jugador. Si no es el lobo, se te dirá (¡porque vives!). Si visitas a un lobo, te matarán. Si visitas al jugador que los lobos han elegido matar, también te matarán. Sin embargo, si estás de visita en casa de un jugador y los lobos deciden matarte, sobrevivirás (no estabas en casa)."
+    ],
+    "AboutBeholder": [
+      "Se te dirá quién es la vidente (la real, no el tonto)."
+    ],
+    "AboutGunner": [
+      "Un poco gatillo fácil, ¿no? Como artillero, al inicio de la partida recibes 2 balas de plata. Cada día tendrás la oportunidad de disparar a otro jugador. Una vez lo hagas, ¡todos sabrán que eres el artillero! Pero cuidado: ¡solo tienes 2 balas!"
+    ],
+    "AboutTraitor": [
+      "Eres un bastardo traidor. Si sobrevives lo suficiente para que mueran todos los lobos, te convertirás en hombre lobo, ¡listo para matar a tus antiguos compañeros de equipo por la noche!"
+    ],
+    "AboutGuardianAngel": [
+      "¡Eres el Ángel de la Guarda! Cada noche puedes elegir a un jugador para velar por él. Ten cuidado, sin embargo: si eliges velar por un lobo, hay un 50% de probabilidades de que te maten."
+    ],
+    "AboutDetective": [
+      "Viejo sabueso. Cada día tendrás la oportunidad de investigar a otro jugador. Úsalo con cuidado, ¡pues hay un 40% de probabilidades de que los hombres lobo te detecten!"
+    ],
+    "AboutApprenticeSeer": [
+      "Por ahora eres un aldeano normal. Sin embargo, si la vidente muere, te convertirás en la nueva vidente."
+    ],
+    "AboutCultist": [
+      "Como cultista, tu objetivo es convertir a todos los demás jugadores (excepto a los lobos) a tu culto. Si al final de la partida todos los jugadores vivos son cultistas, gana el culto."
+    ],
+    "AboutCultistHunter": [
+      "Tu trabajo es cazar al Culto. Si el culto te ataca, morirá su miembro más reciente. Cada noche puedes elegir a un jugador para 'cazar': si es un cultista, morirá."
+    ],
+    "AboutWildChild": [
+      "Al inicio de la partida, elegirás a alguien como tu 'modelo a seguir'. Si muere, te convertirás en hombre lobo."
+    ],
+    "AboutFool": [
+      "Al tonto se le dice que es la vidente... cuando elige ver el rol de alguien por la noche, se le dice un rol aleatorio."
+    ],
+    "AboutMason": [
+      "El trabajo de un masón es simple: sabe automáticamente quiénes son los otros masones. Por lo demás, es un aldeano normal."
+    ],
+    "AboutDoppelganger": [
+      "Tus antepasados tenían la habilidad de transformarse en otros... aunque tú no tienes sus habilidades completas, puedes elegir a un jugador al inicio de la partida. Si ese jugador muere, te convertirás en lo que él era.\\nNota: si el jugador fue convertido al culto, asumirás su rol original. Se aplican todas las demás reglas normales: si era Niño Salvaje y su modelo a seguir murió, te convertirás en lobo. En caso contrario, heredarás su modelo a seguir.\\nEl culto no puede convertir al Doppelgänger (pero sí después de que el doppelgänger cambie de rol). Además, el Doppelgänger NO puede ganar a menos que se haya transformado. Si al final de la partida el Doppelgänger sigue igual, pierde (excepción: amante)."
+    ],
+    "AboutCupid": [
+      "El amor está en el aire. Como Cupido, elegirás a dos jugadores al inicio de la partida. ¡Estos dos jugadores se enamorarán locamente! Si uno muere, el otro morirá de pena :(\\nNota: los amantes sabrán quiénes son el uno para el otro, pero no se les dirá sus roles. Si los amantes son los dos últimos vivos, ganan, sin importar los equipos. Si los amantes están en equipos distintos (aldeano + lobo) y un equipo gana (lobo), el amante (aldeano) también gana. En resumen: si al menos uno de los amantes estaba en el equipo ganador, ambos ganan juntos."
+    ],
+    "AboutHunter": [
+      "Un jugador vengativo y de gatillo fácil. Como cazador, intentas mantenerte apartado. Sin embargo, cuando otros vienen a visitarte, pueden encontrarse muertos, pues tu paranoia se apodera de ti y disparas. Si los lobos te atacan, tienes una posibilidad de llevarte a uno contigo. En caso contrario, si mueres, tendrás la oportunidad de disparar a alguien al morir.\\nNota: para ataques de lobos, la probabilidad empieza en 30%. Si hay un lobo, el cazador tiene un 30% de probabilidades de matarlo (y sobrevivir). Por cada lobo adicional, añade 20% (2 lobos = 50%, 3 = 70%, etc.). Sin embargo, si hay varios lobos, aunque mates a uno, seguirás superado en número y morirás.\\nSi el culto intenta convertirte, tiene un 50% de probabilidades de fallar. Si fallan, ¡tienes un 50% de probabilidades de matar a uno de ellos!"
+    ],
+    "AboutSerialKiller": [
+      "Ese manicomio era una tontería de todos modos. Qué broma. Pero ahora eres libre, de vuelta a lo de siempre: ¡matar! El asesino en serie es un jugador solitario, en su propio equipo. Solo puede ganar si es el último jugador vivo (excepción: amantes). Como asesino en serie, puedes matar a CUALQUIERA: lobos, cazadores, artilleros, ángeles de la guarda, lo que sea. Si los lobos intentan atacarte, matarás a uno de ellos (al azar), y vivirás."
+    ],
+    "AboutTanner": [
+      "El objetivo del Curtidor es simple: que lo lincharan. Si linchan al Curtidor, gana, punto. Todos los demás pierden."
+    ],
+    "AboutMayor": [
+      "Como alcalde, eres un humilde aldeano, hasta que te revelas. Entonces se te da el doble de voto para el linchamiento (es decir, tu voto es el doble de poderoso que el de los demás). Usa ese poder sabiamente para ayudar al Equipo Aldea."
+    ],
+    "AboutPrince": [
+      "El príncipe es un rol clave en la estrategia del Equipo Aldea. Una vez que linchan al príncipe, se revela su rol de Príncipe, y sobrevive. Sin embargo, esto solo puede ocurrir una vez: si la aldea insiste en lincharlo, morirá."
+    ],
+    "AboutSorcerer": [
+      "¿Recuerdas a la buena vidente de antes? Pues ahora tiene su contraparte en el Equipo Lobo. El brujo es la Vidente de los lobos. Solo puede ver si alguien es Lobo o Vidente, y gana con los lobos."
+    ],
+    "AboutClumsyGuy": [
+      "Eres el Torpe. Quizá no deberías haber desayunado tanto alcohol. No ves ni torta. ¿Acaso puedes votar por la persona que quieres? (Tienes un 50% de probabilidades de votar por alguien al azar.)"
+    ],
+    "AboutBlacksmith": [
+      "Eres el Herrero. A lo largo de los años, ni hojas ni espadas te dieron tanta satisfacción como las Hojas de Plata que encargaron los elfos.\\nQuizá te quede algo de polvo de plata. ¿Quién sabe? Podría *impedir que los Lobos coman esta noche* 🤔"
+    ],
+    "AboutAlphaWolf": [
+      "Eres el Lobo Alfa, el origen de la maldición, el azote de los azotes. Cada noche hay un 20% de probabilidades de que muerdas la comida de tu manada, ¡y se unirán a tus filas en lugar de morir!"
+    ],
+    "AboutWolfCub": [
+      "Qué chiqiiiiita criatura tan mono. (cosquillas cosquillas) -tos tos- Como decía, eres el Cachorro de Lobo, y si alguien te mata, el resto de la manada podrá hacer dos muertes en lugar de una para vengarte. Eres demasiado mono para morir."
+    ],
+    "AboutSandman": [
+      "Una vez por partida, el hombre de arena puede dormir tan profundamente a todos los jugadores que nadie podrá usar sus acciones nocturnas."
+    ],
+    "AboutOracle": [
+      "Al oráculo se le dirá qué rol NO es alguien, eligiendo entre roles que siguen vivos en la partida."
+    ],
+    "AboutWolfMan": [
+      "Eres un humilde aldeano, pero como pasas la mayor parte del tiempo en el bosque, donde hay lobos de verdad, ¡la Vidente se confundirá y pensará que eres un hombre lobo! Ay no..."
+    ],
+    "AboutLycan": [
+      "El licántropo es un lobo, pero parecerá un aldeano ante la vidente."
+    ],
+    "AboutPacifist": [
+      "El Pacifista puede elegir convencer a todos en tu aldea de no linchar a nadie. Esto solo puede hacerse una vez."
+    ],
+    "AboutWiseElder": [
+      "El Anciano Sabio puede sobrevivir a un ataque de hombre lobo una vez; la segunda vez pueden devorarte. Si el Artillero o el Cazador te matan con sus habilidades, perderán sus poderes por la pena y se convertirán en aldeanos normales."
+    ],
+    "AboutThief": [
+      "Por defecto, el Ladrón puede robar el rol de un jugador en la primera noche y convertir a ese jugador en aldeano.\\nSi el modo [Ladrón Completo] está activado, tienen un 50% de probabilidades de robar el rol de un jugador cada noche; si lo logran, ese jugador se convertirá en el nuevo ladrón y continuará con el robo."
+    ],
+    "AboutTroublemaker": [
+      "El Alborotador es el adolescente furioso del pueblo. Cuando empieza a gritar, toda la aldea pierde el control. Para conseguir silencio, ¡lincharán dos veces ese día!"
+    ],
+    "AboutChemist": [
+      "El químico es una persona bastante loca a la que le gusta preparar pociones y enredar con ellas. Mezcla dos pociones y obliga a otras personas a elegir una para beber, mientras el químico bebe la otra. Sin embargo, mientras una poción sabe a rosas, la otra te matará al instante. ¡Mucha suerte cuando te visite!"
+    ],
+    "AboutSnowWolf": [
+      "El Lobo de las Nieves es un lobo nativo de las montañas nevadas cercanas a la aldea. Como tal, domina el arte de controlar el hielo y la nieve. Habiendo vivido solo durante mucho tiempo, el Lobo de las Nieves prefiere actuar en solitario. En lugar de cazar con su manada por la noche, puede elegir a una víctima distinta para congelarla, lo que le impide usar sus acciones nocturnas. Sin embargo, conservará algún residuo de la magia del Lobo de las Nieves la noche siguiente, lo que le hará inmune al Lobo de las Nieves durante una noche."
+    ],
+    "AboutGraveDigger": [
+      "Eres el Enterrador. Cada noche cavas las tumbas de todas las personas que han muerto desde la última vez que lo hiciste (sí, hasta los hombres lobo merecen un entierro digno). Como pasas la noche fuera, los lobos y el culto no pueden encontrarte, a menos que realmente no tengas nada que hacer (es decir, que nadie haya muerto); en ese caso te quedarás en casa. Todos los que te visitan tienen una posibilidad de caer en tus tumbas recién cavadas, según cuántas hayas cavado. Además, la probabilidad se reduce a la mitad para todos los que estén en el equipo de la aldea contigo. Pero como estás fuera por la noche, los lobos o el asesino en serie pueden verte y matarte, y cuantas más tumbas tengas que cavar, más probable es. Además, al parecer el asesino en serie puede encontrarte estés en casa o no, pero al menos puede tropezar con una de tus tumbas y lesionarse la pierna, lo que quizá le haga perder el control sobre quién es su víctima la noche siguiente..."
+    ],
+    "AboutArsonist": [
+      "Eres el incendiario. Como el asesino en serie, estás solo en tu equipo. Cada noche puedes rociar la casa de un objetivo con queroseno. Una vez que una o más casas estén rociadas, puedes elegir prender en su lugar, quemando todas las casas rociadas y matando a todos los que estén dentro, incluidos los posibles visitantes. Ganas si eres el único que queda."
+    ],
+    "AboutAugur": [
+      "Eres el Augur. Cada mañana observas a los pájaros y deduces, por su vuelo, un rol que con seguridad no está en la partida en ese momento. Además, nunca te dirán un rol dos veces, ¡así que asegúrate de aprovechar esa información!"
+    ],
+    "AboutWatchman": [
+      "Eres el Vigilante. Cada noche puedes vigilar la casa de un jugador y recibir el número exacto de visitantes que fueron allí."
+    ],
+    "AboutJudge": [
+      "Eres el Juez. Una vez por partida, durante el día, puedes usar tu Derecho de Indulto para cancelar la ejecución de un jugador linchado por la aldea."
+    ],
+    "AboutArchivist": [
+      "Eres el Archivero. Cada noche puedes consultar los registros de la aldea para conocer el número exacto de jugadores vivos en una categoría de rol específica."
+    ],
+    "AboutTracker": [
+      "Eres el Rastreador. Cada noche puedes rastrear a un jugador para averiguar si salió de casa (realizó una acción activa) o se quedó en casa."
+    ],
+    "AboutPriestess": [
+      "Eres la Sacerdotisa. Una vez por partida, por la noche, puedes bendecir a un jugador. Si los lobos lo atacan, sobrevive y la manada queda ciega la noche siguiente."
+    ],
+    "AboutMimic": [
+      "Eres el Imitador. Al inicio de la partida eliges a un jugador para imitar. Las videntes que te escaneen verán el rol de tu objetivo en su lugar."
+    ],
+    "AboutCrownPrince": [
+      "Eres el Príncipe Heredero. Si el Alcalde muere durante la partida, heredas inmediatamente el título de Alcalde y el doble peso de voto."
+    ],
+    "AboutArchangel": [
+      "Eres el Arcángel. Si 3 aldeanos inocentes mueren consecutivamente, recibes una Bala Sagrada capaz de eliminar a un Hombre Lobo durante el día."
+    ],
+    "AboutTrapperWolf": [
+      "Eres el Lobo Trampero. Una vez por partida, por la noche, puedes atrapar la casa de un jugador. Cualquier rol visitante que vaya allí verá su acción neutralizada."
+    ],
+    "AboutChameleonWolf": [
+      "Eres el Lobo Camaleón. Cada noche puedes elegir qué apariencia de rol presentas a los poderes de detección para engañar a la Vidente."
+    ],
+    "AboutViperWolf": [
+      "Eres el Lobo Víbora. Una vez por partida, por la noche, puedes inyectar un veneno lento. La víctima sobrevive el día pero muere al atardecer."
+    ],
+    "AboutHowlerWolf": [
+      "Eres el Lobo Aullador. Una vez por partida, por la noche, tu aullido aterrador hace que todos los votos de linchamiento del día siguiente sean anónimos."
+    ],
+    "AboutHypnotistWolf": [
+      "Eres el Lobo Hipnotizador. Una vez por partida, por la noche, puedes forzar el voto de linchamiento de un aldeano contra un objetivo de tu elección al día siguiente."
+    ],
+    "AboutBerserkerWolf": [
+      "Eres el Lobo Berserker. Si linchan a un Hombre Lobo de tu manada durante el día, entras en furia y permites que la manada elimine a dos víctimas la noche siguiente."
+    ],
+    "AboutNecromancer": [
+      "Eres el Nigromante. Una vez por partida, por la noche, puedes resucitar a un jugador muerto como Zombi. Se une a tu facción para ganar contigo."
+    ],
+    "AboutJester": [
+      "Eres el Bufón. ¡Tu único objetivo es que la aldea te linche! Si lo consigues, ganas en solitario y te llevas contigo a uno de tus acusadores."
+    ],
+    "AboutHitman": [
+      "Eres el Sicario. Al inicio de la partida se te asigna un objetivo secreto. Si tu objetivo muere mientras tú estás vivo, ¡ganas la partida!"
+    ],
+    "AboutReflector": [
+      "Eres el Reflector. Una vez por partida, por la noche, puedes alzar tu espejo. Cualquier poder o ataque dirigido a ti será reflejado de vuelta al que lo envía."
+    ],
+    "AboutAvenger": [
+      "Eres el Vengador. Al inicio de la partida se te asigna un rival. Si ese rival es ejecutado por votación de linchamiento de la aldea, ¡cumples tu objetivo!"
+    ],
+    "AboutCrow": [
+      "Eres el Cuervo. Cada noche puedes maldecir la puerta de un jugador para infligirle +2 votos de penalización durante el próximo linchamiento."
+    ],
+    "GifPackNone": [
+      "Todavía no tienes un paquete de gifs personalizado. Responde a un gif o vídeo con /setgif <categoría> para empezar a enviar uno."
+    ],
+    "GifPackApproved": [
+      "¡Tu paquete de gifs personalizado está aprobado y en uso!"
+    ],
+    "GifPackPending": [
+      "Tu paquete de gifs personalizado está enviado y esperando revisión."
+    ],
+    "GifPackFilledCount": [
+      "Categorías rellenadas: {0}/{1}."
+    ],
+    "GifPackHowTo": [
+      "Responde a un gif o vídeo con /setgif <categoría> para rellenar una categoría. Categorías disponibles: {0}."
+    ],
+    "GifPackUnknownCategory": [
+      "Categoría desconocida. Categorías disponibles: {0}."
+    ],
+    "GifPackReplyRequired": [
+      "Responde a un gif o vídeo con este comando para enviarlo."
+    ],
+    "GifPackSubmitted": [
+      "He guardado tu gif de {0}. Se revisará antes de que tu paquete se active."
+    ],
+    "GifPackGroupCleared": [
+      "Este grupo ya no usa un paquete de gifs personalizado."
+    ],
+    "GifPackUsageUsePack": [
+      "Usa /usegifpack <id de telegram> para activar un paquete de gifs aprobado para este grupo, o /usegifpack none para quitarlo."
+    ],
+    "GifPackNotApproved": [
+      "Ese paquete de gifs aún no está aprobado."
+    ],
+    "GifPackGroupSet": [
+      "Este grupo ahora usará ese paquete de gifs personalizado."
+    ],
+    "GifPackDonationRequired": [
+      "Los paquetes de gifs personalizados son un beneficio para donantes: dona al menos 10 Telegram Stars con /donate para desbloquearlo."
+    ],
+    "DonateHelp": [
+      "¡Apoya el desarrollo del bot con Telegram Stars! Usa /donate <cantidad>, p. ej. /donate 10. Niveles de donación: {0} stars acumuladas."
+    ],
+    "DonateInvoiceTitle": [
+      "Apoya a Hombres Lobo"
+    ],
+    "DonateInvoiceDescription": [
+      "Dona {0} Telegram Stars para apoyar el desarrollo del bot y desbloquear ventajas de donante."
+    ],
+    "DonateInvoiceLabel": [
+      "Donación"
+    ],
+    "DonateThanks": [
+      "¡Gracias por donar {0} Stars! Has donado un total de {1} Stars acumuladas."
+    ],
+    "DonateLeveledUp": [
+      "¡Has alcanzado el nivel de donación {0}! Descubre tus nuevas ventajas con /customgif."
+    ],
+    "DonateStarsReceived": [
+      "¡Gracias por tu apoyo! Has donado {0} ⭐️. Tu nivel de donante ahora es {1}."
+    ],
+    "AfkWarning": [
+      "⚠️ Se ha detectado que {0} está AFK (Aviso {1}/3)."
+    ],
+    "PlayerSuspendedAfk": [
+      "🚫 Has sido suspendido de unirte a partidas durante 24 h tras recibir 3 avisos de AFK."
+    ],
+    "ReportReceived": [
+      "✅ Tu reporte contra {0} ha sido enviado a los administradores."
+    ],
+    "ReportCannotReportSelf": [
+      "❌ No puedes reportarte a ti mismo."
+    ],
+    "ReportUsage": [
+      "Uso: /report <@usuario o responde a un mensaje> <motivo>"
+    ],
+    "ReportAdminNotification": [
+      "⚠️ <b>Nuevo reporte de jugador</b>\nDenunciante: {0} ({1})\nDenunciado: {2} ({3})\nMotivo: {4}"
+    ],
+    "LeaderboardTitle": [
+      "🏆 <b>Clasificación global de jugadores</b> 🏆\n"
+    ],
+    "LeaderboardRow": [
+      "{0}. {1} — ⭐ <b>{2} pts</b> ({3} victorias / {4} partidas)"
+    ],
+    "LeaderboardYourRank": [
+      "\nTu posición: #{0} con ⭐ {1} pts."
+    ],
+    "NoReportsPending": [
+      "No hay reportes pendientes."
+    ],
+    "YourRankIs": [
+      "Rango actual"
+    ],
+    "RankPromotionNotice": [
+      "🎉 <b>¡ENHORABUENA! ¡ASCENSO DE RANGO!</b>\n\n¡Acumulaste <b>{2} puntos</b> y alcanzaste un nuevo nivel!\n¡Tu nuevo rango es: <b>{0} {1}</b>! 🏆"
+    ],
+    "Rank_Novice": [
+      "Escudero Novato"
+    ],
+    "Rank_GuardianOfShadows": [
+      "Guardián de las Sombras"
+    ],
+    "Rank_BlackKnight": [
+      "Caballero Negro"
+    ],
+    "Rank_ShadowKnight": [
+      "Caballero de las Sombras"
+    ],
+    "Rank_EliteKnight": [
+      "Caballero de Élite"
+    ],
+    "Rank_DragonSlayer": [
+      "Matadragones"
+    ],
+    "Rank_ScourgeDestroyer": [
+      "Destructor del Azote"
+    ],
+    "Rank_WarKing": [
+      "Rey de la Guerra"
+    ],
+    "Rank_SkyMonarch": [
+      "Monarca del Cielo"
+    ],
+    "Rank_WolfGod": [
+      "Dios Lobo"
+    ],
+    "Rank_OlympusLord": [
+      "Señor del Olimpo"
+    ],
+    "Rank_SupremeSovereign": [
+      "Soberano Supremo"
+    ]
+  }
+}

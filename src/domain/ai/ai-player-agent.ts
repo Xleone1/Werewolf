@@ -1,5 +1,6 @@
 import { roleName, type Role } from '../roles/role.js';
 import { getTeamForRole } from '../game/team.js';
+import { baseLanguage, pickLang } from '../../infrastructure/i18n/language.js';
 
 export interface ChatMessageEntry {
   senderId: bigint;
@@ -177,7 +178,12 @@ export class AiPlayerAgent {
     // reasoning scaffolding fed to the model, so it doesn't need translating. What matters is
     // telling the model which language its *output* must be in, instead of hardcoding French
     // regardless of the group's actual configured language.
-    const outputLanguageName = params.language === 'en' ? 'anglais (English)' : 'français';
+    const outputLanguageName = pickLang(
+      params.language,
+      'français',
+      'anglais (English)',
+      'espagnol (Spanish)',
+    );
     const recentMessages = params.chatHistory
       .slice(-10)
       .map((m) => `${m.senderName}: "${m.text}"`)
@@ -235,13 +241,13 @@ export class AiPlayerAgent {
     language: string;
   }): string {
     const { targetMessage, livingPlayerNames, gameContext, botRole, language } = params;
-    const isFr = language !== 'en';
+    const lang = baseLanguage(language);
     const nameEnum = roleName(botRole);
 
     const otherPlayers = livingPlayerNames.filter((n) => !n.includes(params.cleanName));
     const randomTarget =
       otherPlayers[Math.floor(Math.random() * otherPlayers.length)] ??
-      (isFr ? "quelqu'un" : 'someone');
+      pickLang(language, "quelqu'un", 'someone', 'alguien');
 
     // 1. Respond to questions about role / accusations with realistic claims / defenses
     if (targetMessage) {
@@ -254,17 +260,24 @@ export class AiPlayerAgent {
         lower.includes('what are you') ||
         lower.includes('claim')
       ) {
-        const claims = isFr
-          ? [
-              `/claim ${nameEnum} - Je suis ${nameEnum}, ne perdez pas votre vote sur moi !`,
-              `Je claim publiquement ${nameEnum}. Qui d'autre prétend l'être ici ?`,
-              `Je suis ${nameEnum}. Concentrons-nous plutôt sur ${randomTarget} qui esquive le débat !`,
-            ]
-          : [
-              `/claim ${nameEnum} - I'm ${nameEnum}, don't waste your vote on me!`,
-              `I'm publicly claiming ${nameEnum}. Who else claims to be one here?`,
-              `I'm ${nameEnum}. Let's focus on ${randomTarget} dodging the debate instead!`,
-            ];
+        const claims =
+          lang === 'fr'
+            ? [
+                `/claim ${nameEnum} - Je suis ${nameEnum}, ne perdez pas votre vote sur moi !`,
+                `Je claim publiquement ${nameEnum}. Qui d'autre prétend l'être ici ?`,
+                `Je suis ${nameEnum}. Concentrons-nous plutôt sur ${randomTarget} qui esquive le débat !`,
+              ]
+            : lang === 'es'
+              ? [
+                  `/claim ${nameEnum} - Soy ${nameEnum}, ¡no malgastéis vuestro voto en mí!`,
+                  `Claim público de ${nameEnum}. ¿Quién más dice serlo aquí?`,
+                  `Soy ${nameEnum}. ¡Centrémonos mejor en ${randomTarget}, que esquiva el debate!`,
+                ]
+              : [
+                  `/claim ${nameEnum} - I'm ${nameEnum}, don't waste your vote on me!`,
+                  `I'm publicly claiming ${nameEnum}. Who else claims to be one here?`,
+                  `I'm ${nameEnum}. Let's focus on ${randomTarget} dodging the debate instead!`,
+                ];
         return claims[Math.floor(Math.random() * claims.length)]!;
       }
 
@@ -275,17 +288,24 @@ export class AiPlayerAgent {
         lower.includes('vote') ||
         lower.includes('accuse')
       ) {
-        const defenses = isFr
-          ? [
-              `Pourquoi tu m'accuses ${targetMessage.senderName} ? Je claim ${nameEnum}, vérifiez mes actes avant de voter !`,
-              `Tu tentes de détourner l'attention ${targetMessage.senderName} ! C'est toi qui devrais t'expliquer.`,
-              `Accuser sans preuves c'est typique d'un Loup. Je claim ${nameEnum} et je vote contre ${targetMessage.senderName}.`,
-            ]
-          : [
-              `Why are you accusing me, ${targetMessage.senderName}? I claim ${nameEnum}, check my actions before voting!`,
-              `You're trying to deflect attention, ${targetMessage.senderName}! You're the one who should explain yourself.`,
-              `Accusing without proof is very Wolf-like. I claim ${nameEnum} and I'm voting against ${targetMessage.senderName}.`,
-            ];
+        const defenses =
+          lang === 'fr'
+            ? [
+                `Pourquoi tu m'accuses ${targetMessage.senderName} ? Je claim ${nameEnum}, vérifiez mes actes avant de voter !`,
+                `Tu tentes de détourner l'attention ${targetMessage.senderName} ! C'est toi qui devrais t'expliquer.`,
+                `Accuser sans preuves c'est typique d'un Loup. Je claim ${nameEnum} et je vote contre ${targetMessage.senderName}.`,
+              ]
+            : lang === 'es'
+              ? [
+                  `¿Por qué me acusas, ${targetMessage.senderName}? Claim ${nameEnum}, ¡comprueba mis actos antes de votar!`,
+                  `¡Intentas desviar la atención, ${targetMessage.senderName}! Tú eres quien debería explicarse.`,
+                  `Acusar sin pruebas es muy típico de un Lobo. Claim ${nameEnum} y voto contra ${targetMessage.senderName}.`,
+                ]
+              : [
+                  `Why are you accusing me, ${targetMessage.senderName}? I claim ${nameEnum}, check my actions before voting!`,
+                  `You're trying to deflect attention, ${targetMessage.senderName}! You're the one who should explain yourself.`,
+                  `Accusing without proof is very Wolf-like. I claim ${nameEnum} and I'm voting against ${targetMessage.senderName}.`,
+                ];
         return defenses[Math.floor(Math.random() * defenses.length)]!;
       }
     }
@@ -297,28 +317,41 @@ export class AiPlayerAgent {
       Math.random() < 0.5
     ) {
       const intelStr = gameContext.knownInformation[0]!;
-      return isFr
-        ? `Je partage une info cruciale : ${intelStr}. Prenez vos responsabilités le village !`
-        : `I'm sharing crucial info: ${intelStr}. Take responsibility, village!`;
+      return pickLang(
+        language,
+        `Je partage une info cruciale : ${intelStr}. Prenez vos responsabilités le village !`,
+        `I'm sharing crucial info: ${intelStr}. Take responsibility, village!`,
+        `Comparto una info crucial: ${intelStr}. ¡Asumid vuestras responsabilidades, aldea!`,
+      );
     }
 
     if (Math.random() < 0.25) {
-      return isFr
-        ? `/claim ${nameEnum} - Je préfère claim clair dès maintenant : je suis ${nameEnum}. Voyons qui ose me contredire !`
-        : `/claim ${nameEnum} - I'd rather claim clearly right now: I'm ${nameEnum}. Let's see who dares contradict me!`;
+      return pickLang(
+        language,
+        `/claim ${nameEnum} - Je préfère claim clair dès maintenant : je suis ${nameEnum}. Voyons qui ose me contredire !`,
+        `/claim ${nameEnum} - I'd rather claim clearly right now: I'm ${nameEnum}. Let's see who dares contradict me!`,
+        `/claim ${nameEnum} - Prefiero claim claro ya: soy ${nameEnum}. ¡A ver quién se atreve a contradecirme!`,
+      );
     }
 
-    const contextualObs = isFr
-      ? [
-          `J'observe de près les votes de ${randomTarget}, ses réactions depuis ce matin sont très étranges.`,
-          `Si personne d'autre ne claim, je propose qu'on demande des explications directes à ${randomTarget}.`,
-          `Regardez qui refuse de donner son rôle depuis le début du jour !`,
-        ]
-      : [
-          `I'm watching ${randomTarget}'s votes closely, their reactions since this morning are very strange.`,
-          `If nobody else claims, I suggest we ask ${randomTarget} directly for an explanation.`,
-          `Look who's been refusing to give their role since the day started!`,
-        ];
+    const contextualObs =
+      lang === 'fr'
+        ? [
+            `J'observe de près les votes de ${randomTarget}, ses réactions depuis ce matin sont très étranges.`,
+            `Si personne d'autre ne claim, je propose qu'on demande des explications directes à ${randomTarget}.`,
+            `Regardez qui refuse de donner son rôle depuis le début du jour !`,
+          ]
+        : lang === 'es'
+          ? [
+              `Observo de cerca los votos de ${randomTarget}; sus reacciones desde esta mañana son muy extrañas.`,
+              `Si nadie más claim, propongo pedirle explicaciones directas a ${randomTarget}.`,
+              `¡Mirad quién se niega a dar su rol desde que empezó el día!`,
+            ]
+          : [
+              `I'm watching ${randomTarget}'s votes closely, their reactions since this morning are very strange.`,
+              `If nobody else claims, I suggest we ask ${randomTarget} directly for an explanation.`,
+              `Look who's been refusing to give their role since the day started!`,
+            ];
     return contextualObs[Math.floor(Math.random() * contextualObs.length)]!;
   }
 }

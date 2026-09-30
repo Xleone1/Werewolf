@@ -31,6 +31,7 @@ import {
 import { NotifyGameRepository } from '../persistence/notify-game.repository.js';
 import { donorBadge, PlayerRepository } from '../persistence/player.repository.js';
 import type { Translator } from '../i18n/translator.js';
+import { pickLang } from '../i18n/language.js';
 import { groupBans } from '../monitoring/metrics.js';
 import type { Logger } from '../logging/logger.js';
 import type { GameLoop } from './game-loop.js';
@@ -118,10 +119,12 @@ export class GameLobbyManager {
     }
 
     if (!group.isApproved) {
-      const msg =
-        language === 'fr'
-          ? "⚠️ <b>Groupe Non Approuvé</b>\n\nCe groupe n'a pas encore été autorisé par les administrateurs. Un administrateur doit approuver votre groupe dans le Control Center Admin avant de pouvoir lancer une partie."
-          : '⚠️ <b>Group Not Approved</b>\n\nThis group has not been authorized by platform administrators yet. An admin must approve your group in the Admin Control Center before games can be started.';
+      const msg = pickLang(
+        language,
+        "⚠️ <b>Groupe Non Approuvé</b>\n\nCe groupe n'a pas encore été autorisé par les administrateurs. Un administrateur doit approuver votre groupe dans le Control Center Admin avant de pouvoir lancer une partie.",
+        '⚠️ <b>Group Not Approved</b>\n\nThis group has not been authorized by platform administrators yet. An admin must approve your group in the Admin Control Center before games can be started.',
+        '⚠️ <b>Grupo No Aprobado</b>\n\nEste grupo aún no ha sido autorizado por los administradores de la plataforma. Un administrador debe aprobar tu grupo en el Centro de Control de Admin antes de poder iniciar partidas.',
+      );
       await this.bot.api.sendMessage(chatNumber(chatId), msg, { parse_mode: 'HTML' });
       return;
     }
@@ -243,7 +246,6 @@ export class GameLobbyManager {
   }
 
   async tagAllMembers(chatId: bigint, language: string): Promise<void> {
-    const isFr = language === 'fr';
     const waitingUsers = await this.notifyGames.listWaiting(chatId);
     const groupPlayers = await this.players.getGroupPlayers(chatId, 100);
     const registeredMembers = await this.groups.getGroupMembers(chatId, 100);
@@ -268,9 +270,12 @@ export class GameLobbyManager {
 
     if (userMap.size === 0) return;
 
-    const header = isFr
-      ? '📢 <b>APPEL DE LA COMMUNAUTÉ ! REJOIGNEZ LA PARTIE !</b> 🐺'
-      : '📢 <b>COMMUNITY CALL! JOIN THE GAME!</b> 🐺';
+    const header = pickLang(
+      language,
+      '📢 <b>APPEL DE LA COMMUNAUTÉ ! REJOIGNEZ LA PARTIE !</b> 🐺',
+      '📢 <b>COMMUNITY CALL! JOIN THE GAME!</b> 🐺',
+      '📢 <b>¡LLAMADA A LA COMUNIDAD! ¡ÚNETE A LA PARTIDA!</b> 🐺',
+    );
     await this.bot.api.sendMessage(chatNumber(chatId), header, { parse_mode: 'HTML' });
 
     // Bundling every mention into one message doesn't reliably notify each tagged user on
@@ -279,7 +284,7 @@ export class GameLobbyManager {
     for (const [id, info] of userMap.entries()) {
       const mention = info.username
         ? `@${info.username}`
-        : `<a href="tg://user?id=${id}">${info.displayName ?? (isFr ? 'Membre' : 'Member')}</a>`;
+        : `<a href="tg://user?id=${id}">${info.displayName ?? pickLang(language, 'Membre', 'Member', 'Miembro')}</a>`;
       try {
         await this.bot.api.sendMessage(chatNumber(chatId), mention, { parse_mode: 'HTML' });
       } catch {
@@ -517,10 +522,12 @@ export class GameLobbyManager {
     const namesA = squadA.map(nameOf).join(', ');
     const namesB = squadB.map(nameOf).join(', ');
 
-    const text =
-      language === 'fr'
-        ? `⚔️ <b>RÉPARTITION DES ÉQUIPES DU DUEL !</b>\n\n🅰️ <b>Équipe A :</b> ${namesA}\n\n🅱️ <b>Équipe B :</b> ${namesB}\n\nQue le meilleur camp survive ! (👑 = capitaine)`
-        : `⚔️ <b>DUEL SQUAD DRAFT!</b>\n\n🅰️ <b>Squad A:</b> ${namesA}\n\n🅱️ <b>Squad B:</b> ${namesB}\n\nMay the best squad survive! (👑 = captain)`;
+    const text = pickLang(
+      language,
+      `⚔️ <b>RÉPARTITION DES ÉQUIPES DU DUEL !</b>\n\n🅰️ <b>Équipe A :</b> ${namesA}\n\n🅱️ <b>Équipe B :</b> ${namesB}\n\nQue le meilleur camp survive ! (👑 = capitaine)`,
+      `⚔️ <b>DUEL SQUAD DRAFT!</b>\n\n🅰️ <b>Squad A:</b> ${namesA}\n\n🅱️ <b>Squad B:</b> ${namesB}\n\nMay the best squad survive! (👑 = captain)`,
+      `⚔️ <b>¡REPARTO DE EQUIPOS DEL DUELO!</b>\n\n🅰️ <b>Equipo A:</b> ${namesA}\n\n🅱️ <b>Equipo B:</b> ${namesB}\n\n¡Que sobreviva el mejor bando! (👑 = capitán)`,
+    );
     await this.bot.api.sendMessage(chatNumber(chatId), text, { parse_mode: 'HTML' });
   }
 
@@ -753,17 +760,25 @@ export class GameLobbyManager {
     if (game.mode !== 'TeamDuel') {
       const team = getTeamForRole(role);
       const teamLabel = this.t.translate(language, `${team}TeamEnd`);
-      campLine =
-        language === 'fr'
-          ? `\n\n🏳️ <b>Camp :</b> ${teamLabel} — c'est ce camp qu'il faut aider à faire gagner !`
-          : `\n\n🏳️ <b>Side:</b> ${teamLabel} — that's the side you need to help win!`;
+      campLine = pickLang(
+        language,
+        `\n\n🏳️ <b>Camp :</b> ${teamLabel} — c'est ce camp qu'il faut aider à faire gagner !`,
+        `\n\n🏳️ <b>Side:</b> ${teamLabel} — that's the side you need to help win!`,
+        `\n\n🏳️ <b>Bando:</b> ${teamLabel} — ¡es a ese bando al que debes ayudar a ganar!`,
+      );
     }
 
     let description = '';
     try {
       const descLocalized = this.t.translate(language, aboutLocaleKey(name));
       if (descLocalized && descLocalized.length > 0) {
-        description = `\n\n📖 <b>${language === 'fr' ? 'Description du rôle' : 'Role description'} :</b>\n${descLocalized}`;
+        const roleDescLabel = pickLang(
+          language,
+          'Description du rôle',
+          'Role description',
+          'Descripción del rol',
+        );
+        description = `\n\n📖 <b>${roleDescLabel} :</b>\n${descLocalized}`;
       }
     } catch {
       // Ignore missing role description key
@@ -774,15 +789,19 @@ export class GameLobbyManager {
       const coMasons = game.players.filter((p) => p.id !== player.id && p.role === ROLE_BIT.Mason);
       if (coMasons.length > 0) {
         const names = coMasons.map((p) => mentionOrPlain(p.id, p.name, p.isBot)).join(', ');
-        teamInfo =
-          language === 'fr'
-            ? `\n\n👷 <b>Vos confrères Francs-Maçons sont :</b> ${names}`
-            : `\n\n👷 <b>Your fellow Masons are:</b> ${names}`;
+        teamInfo = pickLang(
+          language,
+          `\n\n👷 <b>Vos confrères Francs-Maçons sont :</b> ${names}`,
+          `\n\n👷 <b>Your fellow Masons are:</b> ${names}`,
+          `\n\n👷 <b>Tus compañeros Masones son:</b> ${names}`,
+        );
       } else {
-        teamInfo =
-          language === 'fr'
-            ? `\n\n👷 <b>Vous êtes le seul Franc-Maçon de cette partie.</b>`
-            : `\n\n👷 <b>You are the only Mason in this game.</b>`;
+        teamInfo = pickLang(
+          language,
+          `\n\n👷 <b>Vous êtes le seul Franc-Maçon de cette partie.</b>`,
+          `\n\n👷 <b>You are the only Mason in this game.</b>`,
+          `\n\n👷 <b>Eres el único Masón de esta partida.</b>`,
+        );
       }
     } else if (WOLF_ROLES.includes(role) || role === ROLE_BIT.SnowWolf) {
       const pack = game.players.filter(
@@ -795,24 +814,30 @@ export class GameLobbyManager {
               `${mentionOrPlain(p.id, p.name, p.isBot)} (${ROLE_META[roleName(p.role)].emoji} ${this.t.translate(language, `Role_${roleName(p.role)}`)})`,
           )
           .join('\n• ');
-        teamInfo =
-          language === 'fr'
-            ? `\n\n🐺 <b>Vos camarades Loups-Garous sont :</b>\n• ${names}`
-            : `\n\n🐺 <b>Your fellow Werewolves are:</b>\n• ${names}`;
+        teamInfo = pickLang(
+          language,
+          `\n\n🐺 <b>Vos camarades Loups-Garous sont :</b>\n• ${names}`,
+          `\n\n🐺 <b>Your fellow Werewolves are:</b>\n• ${names}`,
+          `\n\n🐺 <b>Tus compañeros Hombres Lobo son:</b>\n• ${names}`,
+        );
       } else {
-        teamInfo =
-          language === 'fr'
-            ? `\n\n🐺 <b>Vous êtes le seul Loup-Garou au départ.</b>`
-            : `\n\n🐺 <b>You are the only Werewolf at the start.</b>`;
+        teamInfo = pickLang(
+          language,
+          `\n\n🐺 <b>Vous êtes le seul Loup-Garou au départ.</b>`,
+          `\n\n🐺 <b>You are the only Werewolf at the start.</b>`,
+          `\n\n🐺 <b>Eres el único Hombre Lobo al principio.</b>`,
+        );
       }
     } else if (role === ROLE_BIT.Cultist) {
       const cult = game.players.filter((p) => p.id !== player.id && p.role === ROLE_BIT.Cultist);
       if (cult.length > 0) {
         const names = cult.map((p) => mentionOrPlain(p.id, p.name, p.isBot)).join(', ');
-        teamInfo =
-          language === 'fr'
-            ? `\n\n🔮 <b>Vos Frères du Culte sont :</b> ${names}`
-            : `\n\n🔮 <b>Your fellow Cultists are:</b> ${names}`;
+        teamInfo = pickLang(
+          language,
+          `\n\n🔮 <b>Vos Frères du Culte sont :</b> ${names}`,
+          `\n\n🔮 <b>Your fellow Cultists are:</b> ${names}`,
+          `\n\n🔮 <b>Tus Hermanos del Culto son:</b> ${names}`,
+        );
       }
     } else if (role === ROLE_BIT.Hitman && game.hitmanTargetMap.has(player.id)) {
       const targetId = game.hitmanTargetMap.get(player.id)!;
@@ -820,20 +845,24 @@ export class GameLobbyManager {
       const targetName = targetPlayer
         ? mentionOrPlain(targetPlayer.id, targetPlayer.name, targetPlayer.isBot)
         : '???';
-      teamInfo =
-        language === 'fr'
-          ? `\n\n🎯 <b>Votre cible d'assassinat est :</b> ${targetName}`
-          : `\n\n🎯 <b>Your assassination target is:</b> ${targetName}`;
+      teamInfo = pickLang(
+        language,
+        `\n\n🎯 <b>Votre cible d'assassinat est :</b> ${targetName}`,
+        `\n\n🎯 <b>Your assassination target is:</b> ${targetName}`,
+        `\n\n🎯 <b>Tu objetivo de asesinato es:</b> ${targetName}`,
+      );
     } else if (role === ROLE_BIT.Avenger && game.avengerTargetMap.has(player.id)) {
       const targetId = game.avengerTargetMap.get(player.id)!;
       const targetPlayer = game.players.find((p) => p.id === targetId);
       const targetName = targetPlayer
         ? mentionOrPlain(targetPlayer.id, targetPlayer.name, targetPlayer.isBot)
         : '???';
-      teamInfo =
-        language === 'fr'
-          ? `\n\n💀 <b>Votre rival juré est :</b> ${targetName}`
-          : `\n\n💀 <b>Your sworn rival is:</b> ${targetName}`;
+      teamInfo = pickLang(
+        language,
+        `\n\n💀 <b>Votre rival juré est :</b> ${targetName}`,
+        `\n\n💀 <b>Your sworn rival is:</b> ${targetName}`,
+        `\n\n💀 <b>Tu rival jurado es:</b> ${targetName}`,
+      );
     } else if (role === ROLE_BIT.Beholder) {
       teamInfo = describeBeholderReveal(player.id, game.players, language);
     }
@@ -850,14 +879,19 @@ export class GameLobbyManager {
         .map((p) => mentionOrPlain(p.id, p.name, p.isBot) + (p.isDuelCaptain ? ' 👑' : ''))
         .join('\n• ');
       const captainNote = player.isDuelCaptain
-        ? language === 'fr'
-          ? '\n👑 Vous êtes le Capitaine de cette équipe.'
-          : '\n👑 You are this squad’s Captain.'
+        ? pickLang(
+            language,
+            '\n👑 Vous êtes le Capitaine de cette équipe.',
+            '\n👑 You are this squad’s Captain.',
+            '\n👑 Eres el Capitán de este equipo.',
+          )
         : '';
-      duelInfo =
-        language === 'fr'
-          ? `\n\n⚔️ <b>Vous faites partie de l'Équipe ${player.duelSquad} !</b>${captainNote}\nCoéquipiers :\n• ${names}\nUtilisez /equipe suivi de votre message pour leur parler en privé. L'équipe avec le plus de survivants à la fin gagne !`
-          : `\n\n⚔️ <b>You're on Squad ${player.duelSquad}!</b>${captainNote}\nSquadmates:\n• ${names}\nUse /equipe followed by your message to talk to them privately. Whichever squad has the most survivors at the end wins!`;
+      duelInfo = pickLang(
+        language,
+        `\n\n⚔️ <b>Vous faites partie de l'Équipe ${player.duelSquad} !</b>${captainNote}\nCoéquipiers :\n• ${names}\nUtilisez /equipe suivi de votre message pour leur parler en privé. L'équipe avec le plus de survivants à la fin gagne !`,
+        `\n\n⚔️ <b>You're on Squad ${player.duelSquad}!</b>${captainNote}\nSquadmates:\n• ${names}\nUse /equipe followed by your message to talk to them privately. Whichever squad has the most survivors at the end wins!`,
+        `\n\n⚔️ <b>¡Formas parte del Equipo ${player.duelSquad}!</b>${captainNote}\nCompañeros:\n• ${names}\nUsa /equipe seguido de tu mensaje para hablar con ellos en privado. ¡Gana el equipo con más supervivientes al final!`,
+      );
     }
 
     const roleMsg = `${this.t.translate(language, 'YourRoleIs', `${emoji} ${displayName}`)}${campLine}${description}${teamInfo}${duelInfo}`;
@@ -992,9 +1026,7 @@ function formatGroupTitle(
       ? 'CHAOS'
       : mode === 'Bloodbath'
         ? 'Bain de Sang'
-        : language === 'fr'
-          ? 'Loup-Garou'
-          : 'Werewolf';
+        : pickLang(language, 'Loup-Garou', 'Werewolf', 'Hombre Lobo');
   const trimmed = title?.trim();
   if (trimmed) return `${modeLabel} (${trimmed})`;
   return modeLabel;
@@ -1018,12 +1050,18 @@ export function describeBeholderReveal(
 ): string {
   const seer = players.find((p) => p.id !== beholderId && p.role === ROLE_BIT.Seer);
   if (!seer) {
-    return language === 'fr'
-      ? `\n\n🔭 <b>Il n'y a pas de Voyante dans cette partie.</b>`
-      : `\n\n🔭 <b>There is no Seer in this game.</b>`;
+    return pickLang(
+      language,
+      `\n\n🔭 <b>Il n'y a pas de Voyante dans cette partie.</b>`,
+      `\n\n🔭 <b>There is no Seer in this game.</b>`,
+      `\n\n🔭 <b>No hay ninguna Vidente en esta partida.</b>`,
+    );
   }
   const seerName = mentionOrPlain(seer.id, seer.name, seer.isBot);
-  return language === 'fr'
-    ? `\n\n🔭 <b>La véritable Voyante de cette partie est :</b> ${seerName}`
-    : `\n\n🔭 <b>The true Seer in this game is:</b> ${seerName}`;
+  return pickLang(
+    language,
+    `\n\n🔭 <b>La véritable Voyante de cette partie est :</b> ${seerName}`,
+    `\n\n🔭 <b>The true Seer in this game is:</b> ${seerName}`,
+    `\n\n🔭 <b>La verdadera Vidente de esta partida es:</b> ${seerName}`,
+  );
 }
