@@ -3,6 +3,13 @@
 FROM node:20-alpine AS base
 WORKDIR /app
 
+# Alpine ships OpenSSL 3.x, but Prisma's engine detection at `prisma generate` time falls back to
+# openssl-1.1.x when the openssl binary isn't present in the build stage - producing a client whose
+# query engine doesn't match the runtime (`linux-musl-arm64-openssl-3.0.x`) and crashing the app on
+# startup. Installing it in `base` keeps every stage (deps/build/prod-deps/runtime) consistent and
+# works on both x86_64 and arm64 without hardcoding an architecture in `binaryTargets`.
+RUN apk add --no-cache openssl
+
 # ---- deps: install all dependencies (needed to compile TS + generate Prisma client)
 FROM base AS deps
 COPY package.json package-lock.json* ./
