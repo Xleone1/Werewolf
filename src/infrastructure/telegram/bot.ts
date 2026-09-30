@@ -1201,10 +1201,19 @@ export function createBot(env: Env, logger: Logger, deps: BotDependencies): Bot 
 
   bot.command('accuse', async (ctx) => {
     if (!ctx.from) return;
+    const language = ctx.chat
+      ? (await deps.groupRepository.getOrCreate(BigInt(ctx.chat.id), ctx.chat.title ?? null, null))
+          .language
+      : (ctx.from.language_code ?? 'en');
     const text = ctx.match?.trim();
     if (!text) {
       await ctx.reply(
-        "🎭 Usage : /accuse @joueur [motif] (ex: /accuse @Gautier Il a l'air louche)",
+        pickLang(
+          language,
+          "🎭 Usage : /accuse @joueur [motif] (ex: /accuse @Gautier Il a l'air louche)",
+          '🎭 Usage: /accuse @player [reason] (e.g. /accuse @Gautier They look suspicious)',
+          '🎭 Uso: /accuse @jugador [motivo] (p. ej. /accuse @Gautier Parece sospechoso)',
+        ),
       );
       return;
     }
@@ -1227,12 +1236,28 @@ export function createBot(env: Env, logger: Logger, deps: BotDependencies): Bot 
       }
     }
 
-    const templates = [
-      `🎭 <b>TIRADE D'ACCUSATION SPECTACULAIRE !</b> 📜\n\n<i>${accuser} pointe un doigt accusateur et tremblant vers <b>${accused}</b> !</i>\n\n💬 « Regardez-le ! Ses mains tremblent comme les feuilles d'un saule pleureur ! ${motive ? `Il affirme que "${motive}", mais ` : ''}Hier soir, je l'ai vu rôder près de la porcherie... <b>${accused} est un Loup-Garou, c'est une certitude !</b> » 🐺🔥`,
-      `🏛️ <b>DISCOURS DE LA POTENCE !</b> ⚖️\n\n<i>${accuser} monte sur une caisse en bois et harangue la foule au sujet de <b>${accused}</b> !</i>\n\n💬 « Oyez, oyez, braves habitants ! ${accused} tente de nous amadouer${motive ? ` en prétextant : "${motive}"` : ''}, mais les ombres ne mentent pas ! Son silence est bien trop suspect pour être innocent ! Aux armes, Village ! » ⚔️🩸`,
-      `🔥 <b>L'INQUISITION DU VILLAGE A PARLÉ !</b> 🔍\n\n<i>${accuser} jette une poignée de sel rituel aux pieds de <b>${accused}</b> !</i>\n\n💬 « Arrière, démon ! ${motive ? `Tu dis que "${motive}" ? Tes mensonges` : 'Tes grognements nocturnes'} ne tromperont personne ! Le feu de la vérité brûlera ton déguisement de loup ! » 🐺✨`,
-      `🌾 <b>RUMEUR ET TRAHISON À THIERCELIEUX !</b> 📢\n\n<i>${accuser} murmure théâtralement aux oreilles des villageois en observant <b>${accused}</b>...</i>\n\n💬 « Avez-vous vu le sang sous ses ongles ? ${motive ? `Il prétend "${motive}", mais ` : ''}Je mettrais ma tête à couper que ${accused} a croqué un pauvre villageois cette nuit ! » 🩸🍖`,
-    ];
+    const lang = baseLanguage(language);
+    const templates =
+      lang === 'fr'
+        ? [
+            `🎭 <b>TIRADE D'ACCUSATION SPECTACULAIRE !</b> 📜\n\n<i>${accuser} pointe un doigt accusateur et tremblant vers <b>${accused}</b> !</i>\n\n💬 « Regardez-le ! Ses mains tremblent comme les feuilles d'un saule pleureur ! ${motive ? `Il affirme que "${motive}", mais ` : ''}Hier soir, je l'ai vu rôder près de la porcherie... <b>${accused} est un Loup-Garou, c'est une certitude !</b> » 🐺🔥`,
+            `🏛️ <b>DISCOURS DE LA POTENCE !</b> ⚖️\n\n<i>${accuser} monte sur une caisse en bois et harangue la foule au sujet de <b>${accused}</b> !</i>\n\n💬 « Oyez, oyez, braves habitants ! ${accused} tente de nous amadouer${motive ? ` en prétextant : "${motive}"` : ''}, mais les ombres ne mentent pas ! Son silence est bien trop suspect pour être innocent ! Aux armes, Village ! » ⚔️🩸`,
+            `🔥 <b>L'INQUISITION DU VILLAGE A PARLÉ !</b> 🔍\n\n<i>${accuser} jette une poignée de sel rituel aux pieds de <b>${accused}</b> !</i>\n\n💬 « Arrière, démon ! ${motive ? `Tu dis que "${motive}" ? Tes mensonges` : 'Tes grognements nocturnes'} ne tromperont personne ! Le feu de la vérité brûlera ton déguisement de loup ! » 🐺✨`,
+            `🌾 <b>RUMEUR ET TRAHISON À THIERCELIEUX !</b> 📢\n\n<i>${accuser} murmure théâtralement aux oreilles des villageois en observant <b>${accused}</b>...</i>\n\n💬 « Avez-vous vu le sang sous ses ongles ? ${motive ? `Il prétend "${motive}", mais ` : ''}Je mettrais ma tête à couper que ${accused} a croqué un pauvre villageois cette nuit ! » 🩸🍖`,
+          ]
+        : lang === 'es'
+          ? [
+              `🎭 <b>¡TIRADA DE ACUSACIÓN ESPECTACULAR!</b> 📜\n\n<i>¡${accuser} señala con un dedo acusador y tembloroso a <b>${accused}</b>!</i>\n\n💬 «¡Míralo! ¡Le tiemblan las manos como las hojas de un sauce llorón! ${motive ? `Afirma que "${motive}", pero ` : ''}Anoche lo vi merodear cerca de la pocilga... <b>¡${accused} es un Hombre Lobo, es una certeza!</b>» 🐺🔥`,
+              `🏛️ <b>¡DISCURSO EN LA HORCA!</b> ⚖️\n\n<i>¡${accuser} se sube a una caja de madera y arenga a la multitud sobre <b>${accused}</b>!</i>\n\n💬 «¡Oíd, oíd, buenos aldeanos! ${accused} intenta engañarnos${motive ? ` con la excusa: "${motive}"` : ''}, pero las sombras no mienten. ¡Su silencio es demasiado sospechoso para ser inocente! ¡A las armas, Aldea!» ⚔️🩸`,
+              `🔥 <b>¡LA INQUISICIÓN DE LA ALDEA HA HABLADO!</b> 🔍\n\n<i>¡${accuser} arroja un puñado de sal ritual a los pies de <b>${accused}</b>!</i>\n\n💬 «¡Atrás, demonio! ${motive ? `¿Dices que "${motive}"? Tus mentiras` : 'Tus gruñidos nocturnos'} no engañarán a nadie. ¡El fuego de la verdad quemará tu disfraz de lobo!» 🐺✨`,
+              `🌾 <b>¡RUMOR Y TRAICIÓN EN THIERCELIEUX!</b> 📢\n\n<i>¡${accuser} susurra teatralmente a los oídos de los aldeanos mientras observa a <b>${accused}</b>!</i>\n\n💬 «¿Habéis visto la sangre bajo sus uñas? ${motive ? `Pretende "${motive}", pero ` : ''}¡Apostaría mi cabeza a que ${accused} se comió a un pobre aldeano anoche!» 🩸🍖`,
+            ]
+          : [
+              `🎭 <b>SPECTACULAR ACCUSATION SPEECH!</b> 📜\n\n<i>${accuser} points a trembling, accusing finger at <b>${accused}</b>!</i>\n\n💬 «Look at them! Their hands are shaking like willow leaves! ${motive ? `They claim "${motive}", but ` : ''}Last night I saw them lurking near the pigsty... <b>${accused} is a Werewolf, I'm certain!</b>» 🐺🔥`,
+              `🏛️ <b>GALLOWS SPEECH!</b> ⚖️\n\n<i>${accuser} climbs onto a wooden crate and rallies the crowd about <b>${accused}</b>!</i>\n\n💬 «Hear ye, hear ye, good villagers! ${accused} tries to charm us${motive ? ` with the excuse: "${motive}"` : ''}, but the shadows don't lie! Their silence is far too suspicious to be innocent! To arms, Village!» ⚔️🩸`,
+              `🔥 <b>THE VILLAGE INQUISITION HAS SPOKEN!</b> 🔍\n\n<i>${accuser} throws a handful of ritual salt at <b>${accused}</b>'s feet!</i>\n\n💬 «Back, demon! ${motive ? `You say "${motive}"? Your lies` : 'Your nocturnal growls'} won't fool anyone! The fire of truth will burn away your wolf disguise!» 🐺✨`,
+              `🌾 <b>RUMOR AND TREACHERY IN THIERCELIEUX!</b> 📢\n\n<i>${accuser} theatrically whispers to the villagers while watching <b>${accused}</b>...</i>\n\n💬 «Did you see the blood under their nails? ${motive ? `They claim "${motive}", but ` : ''}I'd bet my head that ${accused} ate a poor villager last night!» 🩸🍖`,
+            ];
 
     const randomIndex = Math.floor(Math.random() * templates.length);
     const msg = templates[randomIndex]!;
@@ -1460,7 +1485,18 @@ export function createBot(env: Env, logger: Logger, deps: BotDependencies): Bot 
       BigInt(ctx.chat.id),
       ctx.callbackQuery.data,
     );
-    await ctx.answerCallbackQuery({ text: text ?? '✅ Choix enregistré !' }).catch(() => null);
+    await ctx
+      .answerCallbackQuery({
+        text:
+          text ??
+          pickLang(
+            ctx.from.language_code,
+            '✅ Choix enregistré !',
+            '✅ Choice recorded!',
+            '✅ ¡Elección registrada!',
+          ),
+      })
+      .catch(() => null);
     if (text) {
       if (ctx.chat.type === 'private') {
         await ctx.editMessageText(`✅ <b>${text}</b>`, { parse_mode: 'HTML' }).catch(async () => {
@@ -1491,27 +1527,58 @@ export function createBot(env: Env, logger: Logger, deps: BotDependencies): Bot 
 
   bot.command(['addbots', 'addbot'], async (ctx) => {
     if (!ctx.chat || ctx.chat.type === 'private' || !ctx.from) return;
+    const language = (
+      await deps.groupRepository.getOrCreate(BigInt(ctx.chat.id), ctx.chat.title ?? null, null)
+    ).language;
     if (!isDevUser(env, BigInt(ctx.from.id))) {
-      await ctx.reply('⛔ Cette commande est réservée aux développeurs du bot.');
+      await ctx.reply(
+        pickLang(
+          language,
+          '⛔ Cette commande est réservée aux développeurs du bot.',
+          '⛔ This command is reserved for the bot developers.',
+          '⛔ Este comando está reservado para los desarrolladores del bot.',
+        ),
+      );
       return;
     }
     const count = parseInt((ctx.match as string | undefined) ?? '', 10) || 4;
     const added = await lobby.addBotPlayers(BigInt(ctx.chat.id), count);
     if (added > 0) {
-      await ctx.reply(`🤖 <b>${added} joueur(s) IA</b> ont été ajouté(s) à la partie !`, {
-        parse_mode: 'HTML',
-      });
+      await ctx.reply(
+        pickLang(
+          language,
+          `🤖 <b>${added} joueur(s) IA</b> ont été ajouté(s) à la partie !`,
+          `🤖 <b>${added} AI player(s)</b> were added to the game!`,
+          `🤖 ¡Se han añadido <b>${added} jugador(es) IA</b> a la partida!`,
+        ),
+        { parse_mode: 'HTML' },
+      );
     } else {
       await ctx.reply(
-        `⚠️ Lance d'abord une partie avec /startgame pour pouvoir ajouter des bots !`,
+        pickLang(
+          language,
+          `⚠️ Lance d'abord une partie avec /startgame pour pouvoir ajouter des bots !`,
+          `⚠️ Start a game with /startgame first to be able to add bots!`,
+          `⚠️ ¡Inicia primero una partida con /startgame para poder añadir bots!`,
+        ),
       );
     }
   });
 
   bot.command('botgame', async (ctx) => {
     if (!ctx.chat || ctx.chat.type === 'private' || !ctx.from) return;
+    const language = (
+      await deps.groupRepository.getOrCreate(BigInt(ctx.chat.id), ctx.chat.title ?? null, null)
+    ).language;
     if (!isDevUser(env, BigInt(ctx.from.id))) {
-      await ctx.reply('⛔ Cette commande est réservée aux développeurs du bot.');
+      await ctx.reply(
+        pickLang(
+          language,
+          '⛔ Cette commande est réservée aux développeurs du bot.',
+          '⛔ This command is reserved for the bot developers.',
+          '⛔ Este comando está reservado para los desarrolladores del bot.',
+        ),
+      );
       return;
     }
     const name = `${ctx.from.first_name} ${ctx.from.last_name ?? ''}`.trim();
@@ -1522,9 +1589,15 @@ export function createBot(env: Env, logger: Logger, deps: BotDependencies): Bot 
       'Normal',
     );
     const added = await lobby.addBotPlayers(BigInt(ctx.chat.id), 5);
-    await ctx.reply(`🎮 <b>Partie IA démarrée avec toi + ${added} joueurs virtuels (IA) !</b>`, {
-      parse_mode: 'HTML',
-    });
+    await ctx.reply(
+      pickLang(
+        language,
+        `🎮 <b>Partie IA démarrée avec toi + ${added} joueurs virtuels (IA) !</b>`,
+        `🎮 <b>AI game started with you + ${added} virtual (AI) players!</b>`,
+        `🎮 <b>¡Partida IA iniciada contigo + ${added} jugadores virtuales (IA)!</b>`,
+      ),
+      { parse_mode: 'HTML' },
+    );
     await lobby.forceStart(BigInt(ctx.chat.id), true);
   });
 
